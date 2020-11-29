@@ -14,22 +14,6 @@ public class ImpulsWellenlaenge {
 	private double laenge; // in cm
 	private double k;
 	
-	public static void main(String[] args) {
-		double [] beschleunigungsspanne = { 2200, 3500 };
-		double [] radius_der_welle 		= { 1.58, 1.35 };
-		double kristallgitter			= 2.13*Math.pow(10, -10);
-		double laenge					= 13;
-		
-		ImpulsWellenlaenge r;
-		try {
-			r = new ImpulsWellenlaenge(beschleunigungsspanne, radius_der_welle, kristallgitter, laenge);
-			System.out.println(r.get_result_as_json());
-		} catch (Exception e) {
-			e.printStackTrace();
-			return;
-		}
-	}
-	
 	// Konstruktor
 	public ImpulsWellenlaenge(double[] beschleunigungsspanne, double[] radius_der_welle, double kristallgitter, double laenge) throws Exception {
 		this(beschleunigungsspanne, radius_der_welle, kristallgitter, laenge, 1);

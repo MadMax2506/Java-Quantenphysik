@@ -1,22 +1,25 @@
 import java.awt.EventQueue;
 
 import gui.GUI;
+import gui.diagramm.ImpulsWellenlaengeDiagram;
+import rechenoperationen.ImpulsWellenlaenge;
 
 public class App {
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					GUI frame = new GUI();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+		new App();
+	}
+	
+	public App() {
+		EventQueue.invokeLater(() -> start_app_gui());
+	}
+	
+	private void start_app_gui()  {
+		try {
+			GUI frame = new GUI();
+			frame.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

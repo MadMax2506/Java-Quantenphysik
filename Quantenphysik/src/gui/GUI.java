@@ -10,6 +10,9 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import gui.panel.ElektonenPanel;
+import gui.panel.HomePanel;
+
 public class GUI extends JFrame {
 
 	public final String HOME_PANEL_NAME = "HOME";
