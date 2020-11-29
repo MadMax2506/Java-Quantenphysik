@@ -1,59 +1,63 @@
 package gui;
 
-import java.awt.GridBagLayout;
+import java.awt.CardLayout;
+import java.awt.Color;
 
 import javax.swing.JFrame;
+import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import gui.panels.HomePanel;
-
 public class GUI extends JFrame {
 
-	private static final long serialVersionUID = 1842167810443037193L;
+	public final String HOME_PANEL_NAME = "HOME";
+	public final String ELEKTONEN_PANEL_NAME = "ELEKTRONEN";
 	
-	private JPanel jp_contentPane, jp_homePanel;
-	private JMenuBar jmb_menubar;
-	
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+
+	/**
+	 * Create the frame.
+	 */
 	public GUI() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
 		setTitle("Quantenphysik");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 450);
 		
-		setMenu();
-		initElements();
-		addElements();
-		setListener();
+		JMenuBar menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
 		
-		setVisible(true);
+		JMenu mnRechenoperation = new JMenu("Rechenoperationen");
+		menuBar.add(mnRechenoperation);
+		
+		JMenuItem mntmHome = new JMenuItem("Startseite");
+		mnRechenoperation.add(mntmHome);
+		mntmHome.addActionListener((e) -> show_panel(HOME_PANEL_NAME));
+		
+		JMenuItem mntmElektronen = new JMenuItem("Wellencharakter von Elektronen");
+		mnRechenoperation.add(mntmElektronen);
+		mntmElektronen.addActionListener((e) -> show_panel(ELEKTONEN_PANEL_NAME));
+		
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(new CardLayout(0, 0));
+		contentPane.setBackground( Color.BLACK );
+		
+		JPanel homePanel = new HomePanel();
+		contentPane.add(homePanel, HOME_PANEL_NAME);
+		
+		JPanel elektronenPanel = new ElektonenPanel();
+		contentPane.add(elektronenPanel, ELEKTONEN_PANEL_NAME);
+		
+		show_panel(HOME_PANEL_NAME);
+	}
+	
+	private void show_panel(String name) {
+		CardLayout c = (CardLayout)contentPane.getLayout();
+		c.show(contentPane, name);
 	}
 
-	public void setMenu() {
-		jmb_menubar = new JMenuBar();
-	}
-	
-	public void initElements() {
-		// Content Panel
-		jp_contentPane = new JPanel();
-		jp_contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		jp_contentPane.setLayout(new GridBagLayout());
-		
-		jp_homePanel = new HomePanel();
-	}
-	
-	public void addElements() {
-		setContentPane(jp_contentPane);
-		setJMenuBar(jmb_menubar);
-		
-		jp_contentPane.add(jp_homePanel);
-	}
-	
-	public void setListener() {
-		
-	}
-	
-	public void visibilityOfPanels(boolean b_homePanelIsVisible) {
-		jp_homePanel.setVisible(b_homePanelIsVisible);
-	}
 }

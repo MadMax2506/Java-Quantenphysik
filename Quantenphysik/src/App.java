@@ -1,13 +1,22 @@
-import gui.RunGUI;
+import java.awt.EventQueue;
+
+import gui.GUI;
 
 public class App {
 
+	/**
+	 * Launch the application.
+	 */
 	public static void main(String[] args) {
-		// GUI
-		RunGUI runnableGUI = new RunGUI();
-		Thread tGUI = new Thread(runnableGUI);
-
-		tGUI.start();
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					GUI frame = new GUI();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
-
 }
