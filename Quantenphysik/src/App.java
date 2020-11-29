@@ -1,8 +1,6 @@
 import java.awt.EventQueue;
 
 import gui.GUI;
-import gui.diagramm.ImpulsWellenlaengeDiagram;
-import rechenoperationen.ImpulsWellenlaenge;
 
 public class App {
 

@@ -27,8 +27,8 @@ public class ImpulsWellenlaengeDiagram extends JFrame {
 			dot.setDotHeight(5);
 			dot.setDotWidth(5);
 			
-			NumberAxis xax = new NumberAxis("1 / Lambda [ 1e-11m ]");
-			NumberAxis yax = new NumberAxis("Impuls");
+			NumberAxis xax = new NumberAxis("1 / Lambda [ 10 ^ -11 m ]");
+			NumberAxis yax = new NumberAxis("Impuls [ 10 ^ 23 m ]");
 			
 			DefaultXYDataset dataset = new DefaultXYDataset();
 			dataset.addSeries( "", prepare_data(data_json) );
