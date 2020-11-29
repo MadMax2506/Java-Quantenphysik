@@ -13,8 +13,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import rechenoperationen.Helper;
-
 public class ImpulsWellenlaengeDiagram extends JFrame {
 
 	private static final long serialVersionUID = -6746551090428171825L;
@@ -24,6 +22,7 @@ public class ImpulsWellenlaengeDiagram extends JFrame {
 		setBounds(100, 100, 450, 300);
 
 		try {
+			
 			XYDotRenderer dot = new XYDotRenderer();		
 			dot.setDotHeight(5);
 			dot.setDotWidth(5);
@@ -32,7 +31,7 @@ public class ImpulsWellenlaengeDiagram extends JFrame {
 			NumberAxis yax = new NumberAxis("Impuls");
 			
 			DefaultXYDataset dataset = new DefaultXYDataset();
-			dataset.addSeries( "xy", prepare_data(data_json) );
+			dataset.addSeries( "", prepare_data(data_json) );
 			
 			XYPlot plot = new XYPlot(dataset,xax,yax, dot);
 			JFreeChart chart = new JFreeChart(plot);
