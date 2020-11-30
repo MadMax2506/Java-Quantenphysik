@@ -13,11 +13,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ImpulsWellenlaengeDiagram extends JFrame {
+public class DiagramFrame extends JFrame {
 
 	private static final long serialVersionUID = -6746551090428171825L;
 
-	public ImpulsWellenlaengeDiagram(JSONObject data_json) {
+	public DiagramFrame(JSONObject data_json) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 

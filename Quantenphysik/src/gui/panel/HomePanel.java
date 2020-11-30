@@ -31,7 +31,7 @@ public class HomePanel extends JPanel {
 		lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		
-		JLabel lblImage = new JLabel( new ImageIcon( new File("assets/image/background.jpeg").getAbsolutePath() ) );
+		JLabel lblImage = new JLabel( new ImageIcon( new File("assets/image/background_edit.jpg").getAbsolutePath() ) );
 		lblImage.setHorizontalAlignment(SwingConstants.CENTER);
 		main.add(lblImage);
 

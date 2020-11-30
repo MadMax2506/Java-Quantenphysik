@@ -1,4 +1,4 @@
-package gui.panel.impulswellenlaenge;
+package gui.panel;
 
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
@@ -7,6 +7,9 @@ import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
+
+import gui.panel.impulswellenlaenge.PanelAction;
+
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import java.awt.GridBagLayout;
@@ -17,16 +20,16 @@ import javax.swing.JSeparator;
 public class ImpulsWellenlaengePanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	JTextField txtBeschleunigungsspanne_one;
-	JTextField txtBeschleunigungsspanne_two;
-	JTextField txtRadius_one;
-	JTextField txtRadius_two;
-	JTextField txtLaenge;
-	JTextField txtKristallgitter;
-	JTextField txtK;
+	public JTextField txtBeschleunigungsspanne_one;
+	public JTextField txtBeschleunigungsspanne_two;
+	public JTextField txtRadius_one;
+	public JTextField txtRadius_two;
+	public JTextField txtLaenge;
+	public JTextField txtKristallgitter;
+	public JTextField txtK;
 	
-	JCheckBox cbRechenweg;
-	JCheckBox cbDiagramm;
+	public JCheckBox cbRechenweg;
+	public JCheckBox cbDiagramm;
 
 	/**
 	 * Create the panel.
@@ -247,7 +250,7 @@ public class ImpulsWellenlaengePanel extends JPanel {
 		JButton btnBerechnen = new JButton("Berechnen");
 		panel.add(btnBerechnen);
 
-		ImpulsWellenlaengeAction ea = new ImpulsWellenlaengeAction(this);
+		PanelAction ea = new PanelAction(this);
 		
 		btnBerechnen.addActionListener((e) -> ea.calculate());
 		cbDiagramm.addActionListener((e) -> ea.check_checkboxen());

@@ -7,13 +7,14 @@ import javax.swing.JTextField;
 
 import org.json.JSONObject;
 
+import gui.panel.ImpulsWellenlaengePanel;
 import rechenoperationen.ImpulsWellenlaenge;
 
-public class ImpulsWellenlaengeAction {
+public class PanelAction {
 	private ImpulsWellenlaengePanel elektronenPanel;
 	private boolean invalid_inputs;
 	
-	public ImpulsWellenlaengeAction(ImpulsWellenlaengePanel elektronenPanel) {
+	public PanelAction(ImpulsWellenlaengePanel elektronenPanel) {
 		this.elektronenPanel = elektronenPanel;
 	}
 	
@@ -46,7 +47,7 @@ public class ImpulsWellenlaengeAction {
 		invalid_inputs = false;
 		
 		// Values initialisieren
-		double beschleunigungsspanne_one = get_textfield_value(elektronenPanel.txtBeschleunigungsspanne_two);
+		double beschleunigungsspanne_one = get_textfield_value(elektronenPanel.txtBeschleunigungsspanne_one);
 		double beschleunigungsspanne_two = get_textfield_value(elektronenPanel.txtBeschleunigungsspanne_two);
 		double[] beschleunigungsspanne = new double[]{ beschleunigungsspanne_one, beschleunigungsspanne_two };
 		
@@ -98,7 +99,7 @@ public class ImpulsWellenlaengeAction {
 	
 	private void start_diagramm(JSONObject data_json)  {
 		try {
-			ImpulsWellenlaengeDiagram iwd = new ImpulsWellenlaengeDiagram(data_json);
+			DiagramFrame iwd = new DiagramFrame(data_json);
 			iwd.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -107,7 +108,8 @@ public class ImpulsWellenlaengeAction {
 	
 	private void start_rechenweg(JSONObject data_json)  {
 		try {
-			
+			Rechenweg iwr = new Rechenweg(data_json);
+			iwr.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

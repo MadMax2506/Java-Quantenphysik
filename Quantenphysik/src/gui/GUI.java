@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import gui.panel.HomePanel;
-import gui.panel.impulswellenlaenge.ImpulsWellenlaengePanel;
+import gui.panel.ImpulsWellenlaengePanel;
 
 public class GUI extends JFrame {
 
@@ -25,24 +25,34 @@ public class GUI extends JFrame {
 	 * Create the frame.
 	 */
 	public GUI() {
+		setBackground(Color.BLACK);
 		int width 	= 550;
 		int height 	= 400;
 		
 		setTitle("Quantenphysik");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, width, height);
+		setResizable(false);
 		
 		JMenuBar menuBar = new JMenuBar();
+		menuBar.setForeground(Color.WHITE);
+		menuBar.setBackground(Color.BLACK);
 		setJMenuBar(menuBar);
 		
 		JMenu mnRechenoperation = new JMenu("Rechenoperationen");
+		mnRechenoperation.setBackground(Color.BLACK);
+		mnRechenoperation.setForeground(Color.WHITE);
 		menuBar.add(mnRechenoperation);
 		
 		JMenuItem mntmHome = new JMenuItem("Startseite");
+		mntmHome.setForeground(Color.WHITE);
+		mntmHome.setBackground(Color.BLACK);
 		mnRechenoperation.add(mntmHome);
 		mntmHome.addActionListener((e) -> show_panel(HOME_PANEL_NAME));
 		
 		JMenuItem mntmElektronen = new JMenuItem("Impuls Wellenlaenge");
+		mntmElektronen.setBackground(Color.BLACK);
+		mntmElektronen.setForeground(Color.WHITE);
 		mnRechenoperation.add(mntmElektronen);
 		mntmElektronen.addActionListener((e) -> show_panel(ELEKTONEN_PANEL_NAME));
 		
