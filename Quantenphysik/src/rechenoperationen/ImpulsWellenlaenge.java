@@ -5,7 +5,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ImpulsWellenlaenge {
-	public static final double elektronenmasse 			= 9.10938356 * Math.pow(10, -31); // in kg
+	public static final double elektronenmasse 				= 9.10938356 * Math.pow(10, -31); // in kg
 	public static final double elektronengeschwindigkeit 	= 1.602 * Math.pow(10, -19); // in C
 	
 	private double[] beschleunigungsspanne; // in v

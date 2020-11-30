@@ -16,6 +16,7 @@ import javax.swing.border.EmptyBorder;
 
 import org.json.JSONObject;
 
+import rechenoperationen.Helper;
 import rechenoperationen.ImpulsWellenlaenge;
 
 public class Rechenweg extends JFrame {
@@ -40,7 +41,7 @@ public class Rechenweg extends JFrame {
 	private JPanel contentPane;
 	
 	public Rechenweg(JSONObject data_json) {
-		int width = 550;
+		int width = 650;
 		int height = 300;
 		
 		RechenwegAction re = new RechenwegAction(this);
@@ -152,6 +153,7 @@ public class Rechenweg extends JFrame {
 		main.add(lblKristallgitter, gbc_lblKristallgitter);
 		
 		lblKristallgitterValue = new JLabel("");
+		lblKristallgitterValue.setForeground(Color.WHITE);
 		lblKristallgitterValue.setHorizontalAlignment(SwingConstants.LEFT);
 		lblLaengeValue.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblKristallgitterValue = new GridBagConstraints();
@@ -204,7 +206,8 @@ public class Rechenweg extends JFrame {
 		gbc_lblElektronenmasse.gridy = 6;
 		main.add(lblElektronenmasse, gbc_lblElektronenmasse);
 		
-		JLabel lblElektronenmasseValue = new JLabel(ImpulsWellenlaenge.elektronenmasse + " kg");
+		JLabel lblElektronenmasseValue = new JLabel( Helper.round(ImpulsWellenlaenge.elektronenmasse * Math.pow(10, 31), 4)  + " 10 ^ -31 kg");
+		lblElektronenmasseValue.setForeground(Color.WHITE);
 		lblKValue.setHorizontalAlignment(SwingConstants.LEFT);
 		lblKValue.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblElektronenmasseValue = new GridBagConstraints();
@@ -225,7 +228,7 @@ public class Rechenweg extends JFrame {
 		gbc_lblElektronengeschwindigkeit.gridy = 7;
 		main.add(lblElektronengeschwindigkeit, gbc_lblElektronengeschwindigkeit);
 		
-		JLabel lblElektronengeschwindigkeitValue = new JLabel(ImpulsWellenlaenge.elektronengeschwindigkeit + " C");
+		JLabel lblElektronengeschwindigkeitValue = new JLabel( Helper.round(ImpulsWellenlaenge.elektronengeschwindigkeit * Math.pow(10, 19), 4) + " 10 ^ -19 C");
 		lblElektronengeschwindigkeitValue.setHorizontalAlignment(SwingConstants.LEFT);
 		lblElektronengeschwindigkeitValue.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblElektronengeschwindigkeitValue = new GridBagConstraints();
@@ -279,7 +282,7 @@ public class Rechenweg extends JFrame {
 		gbc_lblLambdaRechenweg.gridy = 9;
 		main.add(lblLambdaRechenweg, gbc_lblLambdaRechenweg);
 		
-		JLabel lblImpuls = new JLabel("Lamdba (λ)");
+		JLabel lblImpuls = new JLabel("Impuls (P)");
 		lblImpuls.setHorizontalAlignment(SwingConstants.LEFT);
 		lblImpuls.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblImpuls = new GridBagConstraints();

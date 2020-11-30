@@ -4,6 +4,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import rechenoperationen.Helper;
+
 public class RechenwegAction {
 	private Rechenweg rechenweg;
 	
@@ -23,16 +25,16 @@ public class RechenwegAction {
 	public void change_rechenweg_values() {
 		int selectindex = rechenweg.comboBox.getSelectedIndex();
 		
-		String beschleunigungsspanne 	= beschleunigungsspanne_prepare[selectindex] + " V";
-		String radius 					= radius_prepare[selectindex] + " cm";
-		String laenge 					= this.laenge + " cm";
-		String kristallgitter			= this.kristallgitter + " in 10 ^ -10 m";
-		String k						= this.k + "";
+		String beschleunigungsspanne 	= Helper.round(beschleunigungsspanne_prepare[selectindex], 4) + " V";
+		String radius 					= Helper.round(radius_prepare[selectindex], 4) + " cm";
+		String laenge 					= Helper.round(this.laenge, 4) + " cm";
+		String kristallgitter			= Helper.round(this.kristallgitter * Math.pow(10, 10), 4) + " * (10 ^ -10) m";
+		String k						= Helper.round(this.k, 4) + "";
 		
-		String lambda 			= lambda_prepare[selectindex] + " 10 ^ -11 m";
+		String lambda 			= Helper.round(lambda_prepare[selectindex], 4) + " * (10 ^ -11) m";
 		String lambda_rechenweg = "(2 * d * sin(0.5 * arcsin(r / l)) / k";
 		
-		String impuls			= impuls_prepare[selectindex] + " 10 ^ -11 m";
+		String impuls			= Helper.round(impuls_prepare[selectindex], 4) + " * (10 ^ -23) m";
 		String impuls_rechenweg = "sqrt(2 * m * e * U)";
 		
 		rechenweg.lblBeschleunigungsspanneValue.setText( beschleunigungsspanne );
@@ -51,6 +53,7 @@ public class RechenwegAction {
 	}
 	
 	public String[] prepare_data(JSONObject data_json) throws JSONException {
+		System.out.println(data_json);
 		// daten aus json laden
 		JSONArray beschleunigungsspanne = data_json.getJSONArray("beschleunigungsspanne");
 		JSONArray radius 				= data_json.getJSONArray("radius");
@@ -73,8 +76,8 @@ public class RechenwegAction {
 			combobox_labels[i]					= "Rechenweg (" + (i + 1) + ")";
 			beschleunigungsspanne_prepare[i] 	= beschleunigungsspanne.getDouble(i);
 			radius_prepare[i] 					= radius.getDouble(i);
-			lambda_prepare[i] 					= lambda.getDouble(i);
-			impuls_prepare[i] 					= impuls.getDouble(i);
+			lambda_prepare[i] 					= lambda.getDouble(i) * Math.pow(10, 11);
+			impuls_prepare[i] 					= impuls.getDouble(i) * Math.pow(10, 23);
 		}
 		
 		return combobox_labels;
