@@ -1,4 +1,4 @@
-package gui.diagramm;
+package gui.panel.impulswellenlaenge;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;

@@ -76,7 +76,25 @@ public class ImpulsWellenlaenge {
 	}
 	
 	// resultat -> json format
-	public JSONObject get_result_as_json() {
+	public JSONObject get_diagramm_json() {
+		// objekt initialisieren
+		JSONObject object_json = new JSONObject();
+		
+		try {
+			// Lambda
+			object_json.put("lambda", get_array_json( get_lambda() ));
+			
+			// Impuls
+			object_json.put("impuls", get_array_json( get_impuls() ));
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return object_json;
+	}
+	
+	public JSONObject get_rechenweg_json() {
 		// objekt initialisieren
 		JSONObject object_json = new JSONObject();
 		
@@ -86,6 +104,15 @@ public class ImpulsWellenlaenge {
 			
 			// Radius
 			object_json.put("radius", get_array_json( radius_der_welle ));
+			
+			// Kristallgitter
+			object_json.put("kristallgitter", kristallgitter);
+			
+			// Laenge
+			object_json.put("laenge", laenge);
+			
+			// k
+			object_json.put("k", k);
 			
 			// Lambda
 			object_json.put("lambda", get_array_json( get_lambda() ));
@@ -108,4 +135,6 @@ public class ImpulsWellenlaenge {
 		}
 		return array_json;
 	}
+	
+	
 }

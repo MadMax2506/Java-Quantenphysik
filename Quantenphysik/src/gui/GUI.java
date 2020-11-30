@@ -10,8 +10,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import gui.panel.ElektonenPanel;
 import gui.panel.HomePanel;
+import gui.panel.impulswellenlaenge.ImpulsWellenlaengePanel;
 
 public class GUI extends JFrame {
 
@@ -25,9 +25,12 @@ public class GUI extends JFrame {
 	 * Create the frame.
 	 */
 	public GUI() {
+		int width 	= 550;
+		int height 	= 400;
+		
 		setTitle("Quantenphysik");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 550, 550);
+		setBounds(100, 100, width, height);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -39,7 +42,7 @@ public class GUI extends JFrame {
 		mnRechenoperation.add(mntmHome);
 		mntmHome.addActionListener((e) -> show_panel(HOME_PANEL_NAME));
 		
-		JMenuItem mntmElektronen = new JMenuItem("Wellencharakter von Elektronen");
+		JMenuItem mntmElektronen = new JMenuItem("Impuls Wellenlaenge");
 		mnRechenoperation.add(mntmElektronen);
 		mntmElektronen.addActionListener((e) -> show_panel(ELEKTONEN_PANEL_NAME));
 		
@@ -52,8 +55,8 @@ public class GUI extends JFrame {
 		JPanel homePanel = new HomePanel();
 		contentPane.add(homePanel, HOME_PANEL_NAME);
 		
-		JPanel elektronenPanel = new ElektonenPanel();
-		contentPane.add(elektronenPanel, ELEKTONEN_PANEL_NAME);
+		JPanel impulsWellenlaengePanel = new ImpulsWellenlaengePanel(width);
+		contentPane.add(impulsWellenlaengePanel, ELEKTONEN_PANEL_NAME);
 		
 		show_panel(HOME_PANEL_NAME);
 	}
