@@ -74,7 +74,7 @@ public class ImpulsWellenlaengePanel extends JPanel {
 		main.add(txtBeschleunigungsspanne_one, gbc_txtBeschleunigungsspanne_one);
 		txtBeschleunigungsspanne_one.setColumns(10);
 		
-		JLabel lblRadius_one = new JLabel("Wellenradius 1 (in cm)");
+		JLabel lblRadius_one = new JLabel("Interferenzradius 1 (in cm)");
 		lblRadius_one.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblRadius_one = new GridBagConstraints();
 		gbc_lblRadius_one.fill = GridBagConstraints.BOTH;
@@ -110,7 +110,7 @@ public class ImpulsWellenlaengePanel extends JPanel {
 		gbc_txtBeschleunigungsspanne_two.gridy = 2;
 		main.add(txtBeschleunigungsspanne_two, gbc_txtBeschleunigungsspanne_two);
 		
-		JLabel lblRadius_two = new JLabel("Wellenradius 2 (in cm)");
+		JLabel lblRadius_two = new JLabel("Interferenzradius 2 (in cm)");
 		lblRadius_two.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblRadius_two = new GridBagConstraints();
 		gbc_lblRadius_two.fill = GridBagConstraints.BOTH;
