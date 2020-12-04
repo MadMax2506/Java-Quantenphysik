@@ -8,6 +8,7 @@ import javax.swing.JTextField;
 import org.json.JSONObject;
 
 import gui.panel.ImpulsWellenlaengePanel;
+import main.App;
 import rechenoperationen.ImpulsWellenlaenge;
 
 public class PanelAction {
@@ -20,29 +21,32 @@ public class PanelAction {
 	
 	public void check_checkboxen() {
 		// Fortlaufende Actionen initialisieren
-		boolean show_rechenweg = elektronenPanel.cbRechenweg.isSelected();
-		boolean show_diagramm = elektronenPanel.cbDiagramm.isSelected();
+		boolean save_rechenweg 	= elektronenPanel.cbSave.isSelected();
+		boolean show_rechenweg 	= elektronenPanel.cbRechenweg.isSelected();
+		boolean show_diagramm 	= elektronenPanel.cbDiagramm.isSelected();
 		
-		if(show_diagramm && !show_rechenweg) {
+		if( ( !save_rechenweg && show_diagramm && !show_rechenweg )
+			|| ( !save_rechenweg && show_diagramm && !show_rechenweg )
+			|| ( save_rechenweg && !show_diagramm && !show_rechenweg )) {
 			
-			elektronenPanel.cbDiagramm.setEnabled(false);
-			elektronenPanel.cbRechenweg.setEnabled(true);
+			elektronenPanel.cbSave.setEnabled(!save_rechenweg);
+			elektronenPanel.cbDiagramm.setEnabled(!show_diagramm);
+			elektronenPanel.cbRechenweg.setEnabled(!show_rechenweg);
 			
-		} else if(!show_diagramm && show_rechenweg) {
-			
-			elektronenPanel.cbDiagramm.setEnabled(true);
-			elektronenPanel.cbRechenweg.setEnabled(false);
 		} else {
 			
+			elektronenPanel.cbSave.setEnabled(true);
 			elektronenPanel.cbDiagramm.setEnabled(true);
 			elektronenPanel.cbRechenweg.setEnabled(true);
+			
 		}
 	}
 	
 	public void calculate() {
 		// Fortlaufende Actionen initialisieren
-		boolean show_rechenweg = elektronenPanel.cbRechenweg.isSelected();
-		boolean show_diagramm = elektronenPanel.cbDiagramm.isSelected();
+		boolean save_rechenweg 	= elektronenPanel.cbSave.isSelected();
+		boolean show_rechenweg 	= elektronenPanel.cbRechenweg.isSelected();
+		boolean show_diagramm 	= elektronenPanel.cbDiagramm.isSelected();
 		
 		invalid_inputs = false;
 		
@@ -70,11 +74,19 @@ public class PanelAction {
 		try {
 			iw = new ImpulsWellenlaenge(beschleunigungsspanne, radius_der_welle, kristallgitter, laenge, (int)k);
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Leider ist ein Systemfehler aufgetreten.\n Versuchen Sie es zu einem späteren Zeitpunkt erneut..", "Systemfehler", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Leider ist ein Systemfehler aufgetreten.\nVersuchen Sie es zu einem späteren Zeitpunkt erneut...", "Systemfehler", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 		
 		//
+		if(save_rechenweg) {
+			String name = JOptionPane.showInputDialog(null, "Bitte geben Sie eine den Namen der Datei ein (ohne \".json\").\nDie Datei wird in \"" + App.user_folder + "\" gespeichert.\n", "Dateiname", JOptionPane.PLAIN_MESSAGE);
+			
+			if(name != null) {
+				iw.save_json( name + ".json" );
+			}
+		}
+		
 		if(show_rechenweg) {
 			JSONObject rechenweg_json = iw.get_rechenweg_json();
 			EventQueue.invokeLater(() -> start_rechenweg(rechenweg_json));

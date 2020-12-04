@@ -53,7 +53,6 @@ public class RechenwegAction {
 	}
 	
 	public String[] prepare_data(JSONObject data_json) throws JSONException {
-		System.out.println(data_json);
 		// daten aus json laden
 		JSONArray beschleunigungsspanne = data_json.getJSONArray("beschleunigungsspanne");
 		JSONArray radius 				= data_json.getJSONArray("radius");

@@ -1,8 +1,14 @@
 package rechenoperationen;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import main.App;
 
 public class ImpulsWellenlaenge {
 	public static final double elektronenmasse 				= 9.10938356 * Math.pow(10, -31); // in kg
@@ -73,6 +79,26 @@ public class ImpulsWellenlaenge {
 	
 	private double get_impuls(double u) {
 		return Math.sqrt( 2 * elektronenmasse * elektronengeschwindigkeit * u);
+	}
+	
+	// resultat -> save
+	public void save_json(String filename) {
+		JSONObject object = this.get_rechenweg_json();
+		
+		try {
+			File f = new File( App.user_folder.toString() + "/" + filename);
+			f.createNewFile();
+			
+			FileWriter fw		= new FileWriter(f);
+			BufferedWriter bw	= new BufferedWriter(fw);
+			
+			bw.write(object.toString());
+			bw.flush();
+			bw.close();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	// resultat -> json format

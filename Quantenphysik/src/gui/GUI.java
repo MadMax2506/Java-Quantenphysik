@@ -49,6 +49,7 @@ public class GUI extends JFrame {
 		mntmHome.setBackground(Color.BLACK);
 		mnRechenoperation.add(mntmHome);
 		mntmHome.addActionListener((e) -> show_panel(HOME_PANEL_NAME));
+		mnRechenoperation.addSeparator();
 		
 		JMenuItem mntmElektronen = new JMenuItem("Impuls Wellenlaenge");
 		mntmElektronen.setBackground(Color.BLACK);
