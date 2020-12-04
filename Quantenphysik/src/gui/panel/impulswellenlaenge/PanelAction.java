@@ -39,10 +39,16 @@ public class PanelAction {
 	public PanelAction(ImpulsWellenlaengePanel elektronenPanel) {
 		this.elektronenPanel = elektronenPanel;
 		
+		set_default();
+	}
+	
+	// setter
+	public void set_default() {
+		// head
 		anzahl_der_elemente = 2;
 		aktuelles_element_index = 0;
 		elektronenPanel.txtAnzahlDerElemente.setText(String.valueOf(anzahl_der_elemente));
-		elektronenPanel.lblCurrentStep.setText( (aktuelles_element_index + 1) + " / " + anzahl_der_elemente + " Elementen" );
+		set_aktuelles_element_werte();
 		
 		// dynamische daten
 		erzeuge_leere_speicher();
@@ -54,12 +60,17 @@ public class PanelAction {
 		k = 1;
 		elektronenPanel.txtK.setText(String.valueOf(k));
 		
-		save_rechenweg 	= true;
-		show_rechenweg	= true;
-		show_diagramm	= true;
+		show_rechenweg = true;
+		elektronenPanel.cbRechenweg.setSelected(show_rechenweg);
+		elektronenPanel.cbRechenweg.setEnabled(false);
+		
+		save_rechenweg = false;
+		elektronenPanel.cbSave.setSelected(save_rechenweg);
+		
+		show_diagramm = false;
+		elektronenPanel.cbDiagramm.setSelected(show_diagramm);
 	}
 	
-	// setter
 	public void set_anzahl_der_elemente() {
 		int neue_anzahl_der_elemente = get_textfield_value_int(elektronenPanel.txtAnzahlDerElemente, "");
 		
@@ -73,8 +84,8 @@ public class PanelAction {
 		anzahl_der_elemente 	= neue_anzahl_der_elemente;
 		aktuelles_element_index = 0;
 		
-		set_aktuelles_element_werte();
 		erzeuge_leere_speicher();
+		set_aktuelles_element_werte();
 	}
 	
 	public void set_aktuelles_element_index(boolean naechstes) {
@@ -96,14 +107,16 @@ public class PanelAction {
 	}
 	
 	private void set_aktuelles_element_werte() {
-		elektronenPanel.lblCurrentStep.setText( (aktuelles_element_index + 1) + " / " + anzahl_der_elemente + " Elementen" );
+		elektronenPanel.lblCurrentStep.setText( "Element " + (aktuelles_element_index + 1) + " / " + anzahl_der_elemente);
 		
-		// values setzten
-		double elem_beschleunigungsspanne 	= beschleunigungsspanne.get(aktuelles_element_index);
-		double elem_interferenz_radius 		= interferenz_radius.get(aktuelles_element_index);
+		try {
+			// values setzten
+			double elem_beschleunigungsspanne 	= beschleunigungsspanne.get(aktuelles_element_index);
+			double elem_interferenz_radius 		= interferenz_radius.get(aktuelles_element_index);
 
-		elektronenPanel.txtBeschleunigungsspanne.setText( elem_beschleunigungsspanne == EMPTY_VALUE ? "" : String.valueOf(elem_beschleunigungsspanne));
-		elektronenPanel.txtInterferenzRadius.setText( elem_interferenz_radius == EMPTY_VALUE ? "" : String.valueOf(elem_interferenz_radius));
+			elektronenPanel.txtBeschleunigungsspanne.setText( elem_beschleunigungsspanne == EMPTY_VALUE ? "" : String.valueOf(elem_beschleunigungsspanne));
+			elektronenPanel.txtInterferenzRadius.setText( elem_interferenz_radius == EMPTY_VALUE ? "" : String.valueOf(elem_interferenz_radius));
+		} catch(NullPointerException npe) { }
 	}
 	
 	private void erzeuge_leere_speicher() {
@@ -130,7 +143,7 @@ public class PanelAction {
 	}
 	
 	public void set_kristallgitter() {
-		kristallgitter = get_textfield_value_double(elektronenPanel.txtKristallgitter, "");
+		kristallgitter = get_textfield_value_double(elektronenPanel.txtKristallgitter, "") * Math.pow(10, -10);
 	}
 
 	public void set_k() {
@@ -143,14 +156,11 @@ public class PanelAction {
 		show_rechenweg 	= elektronenPanel.cbRechenweg.isSelected();
 		show_diagramm 	= elektronenPanel.cbDiagramm.isSelected();
 		
-		if( ( !save_rechenweg && show_diagramm && !show_rechenweg )
-			|| ( !save_rechenweg && !show_diagramm && show_rechenweg )
-			|| ( save_rechenweg && !show_diagramm && !show_rechenweg )) {
-			elektronenPanel.cbSave.setEnabled(!save_rechenweg);
+		if( show_diagramm && !show_rechenweg
+			|| !show_diagramm && show_rechenweg ) {
 			elektronenPanel.cbDiagramm.setEnabled(!show_diagramm);
 			elektronenPanel.cbRechenweg.setEnabled(!show_rechenweg);
 		} else {
-			elektronenPanel.cbSave.setEnabled(true);
 			elektronenPanel.cbDiagramm.setEnabled(true);
 			elektronenPanel.cbRechenweg.setEnabled(true);
 		}

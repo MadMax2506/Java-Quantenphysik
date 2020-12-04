@@ -11,6 +11,8 @@ import org.json.JSONObject;
 import main.App;
 
 public class ImpulsWellenlaenge {
+	public static final double INFINITY = -2.0101001043898;
+	
 	public static final double elektronenmasse 	= 9.10938356 * Math.pow(10, -31); // in kg
 	public static final double elementarladung 	= 1.602 * Math.pow(10, -19); // in C
 	
@@ -37,7 +39,6 @@ public class ImpulsWellenlaenge {
 			// Exception werfen
 			throw new Exception("Fehlerhafte Angaben");
 		}
-		
 		// Parameter initialisieren
 		this.beschleunigungsspanne 	= beschleunigungsspanne;
 		this.interferenzradius 		= interferenzradius;
@@ -53,13 +54,14 @@ public class ImpulsWellenlaenge {
 		
 		for(int i = 0; i < length; i++) {
 			res[i] = get_lamda(interferenzradius[i]);
+			System.out.println(res[i]);
 		}
 		return res;
 	}
 	
 	private double get_lamda(double r) {
 		double theta = get_theta(r);
-		return ( 2 * kristallgitter * Math.sin( theta ) ) / k;
+		return 2/ k * kristallgitter * Math.sin( theta );
 	}
 	
 	private double get_theta(double r) {
@@ -71,7 +73,7 @@ public class ImpulsWellenlaenge {
 		int length 		= beschleunigungsspanne.length;
 		double[] res	= new double[length];
 		
-		for(int i = 0; i < 2; i++) {
+		for(int i = 0; i < length; i++) {
 			res[i] = get_impuls(beschleunigungsspanne[i]);
 		}
 		return res;
@@ -79,6 +81,21 @@ public class ImpulsWellenlaenge {
 	
 	private double get_impuls(double u) {
 		return Math.sqrt( 2 * elektronenmasse * elementarladung * u);
+	}
+	
+	// geschwindigkeit -> in m / s
+	private double[] get_geschwindigkeit(double[] impuls) {
+		int length 		= impuls.length;
+		double[] res	= new double[length];
+		
+		for(int i = 0; i < length; i++) {
+			res[i] = get_geschwindigkeit(impuls[i]);
+		}
+		return res;
+	}
+	
+	private double get_geschwindigkeit(double impuls) {
+		return Math.sqrt( impuls / elektronenmasse);
 	}
 	
 	// resultat -> save
@@ -144,7 +161,11 @@ public class ImpulsWellenlaenge {
 			object_json.put("lambda", get_array_json( get_lambda() ));
 			
 			// Impuls
-			object_json.put("impuls", get_array_json( get_impuls() ));
+			double[] impuls = get_impuls();
+			object_json.put("impuls", get_array_json( impuls ));
+			
+			// Geschwindigkeit
+			object_json.put("geschwindigkeit", get_array_json( get_geschwindigkeit(impuls) ));
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -157,7 +178,11 @@ public class ImpulsWellenlaenge {
 		JSONArray array_json = new JSONArray();
 		
 		for(double elem : array) {
-			array_json.put(elem);
+			try {
+				array_json.put(elem);
+			} catch (Exception e){
+				array_json.put(INFINITY);
+			}
 		}
 		return array_json;
 	}

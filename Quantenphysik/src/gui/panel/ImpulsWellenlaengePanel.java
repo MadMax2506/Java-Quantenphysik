@@ -81,8 +81,8 @@ public class ImpulsWellenlaengePanel extends JPanel {
 		main.add(txtAnzahlDerElemente, gbc_txtAnzahlDerElemente);
 		txtAnzahlDerElemente.setColumns(10);
 		
-		JButton btn_check = new JButton("y");
-		btn_check.setFont(new Font("Dialog", Font.BOLD, 10));
+		JButton btn_check = new JButton("✔");
+		btn_check.setFont(new Font("Dialog", Font.BOLD, 15));
 		btn_check.setForeground(Color.WHITE);
 		btn_check.setBackground(Color.BLACK);
 		GridBagConstraints gbc_btn_weiter = new GridBagConstraints();
@@ -131,7 +131,7 @@ public class ImpulsWellenlaengePanel extends JPanel {
 		btn_weiter.setBackground(Color.BLACK);
 		dynamic_controll.add(btn_weiter);
 		
-		JLabel lblBeschleunigungsspanne = new JLabel("Beuschleunigungsspanne (in V)");
+		JLabel lblBeschleunigungsspanne = new JLabel("Beschleunigungsspanne (in V)");
 		lblBeschleunigungsspanne.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblBeschleunigungsspanne = new GridBagConstraints();
 		gbc_lblBeschleunigungsspanne.fill = GridBagConstraints.BOTH;
@@ -198,7 +198,7 @@ public class ImpulsWellenlaengePanel extends JPanel {
 		gbc_txtLaenge.gridy = 6;
 		main.add(txtLaenge, gbc_txtLaenge);
 		
-		JLabel lblKristallgitter = new JLabel("Kristallgitter (in 10 ^ -10 m)");
+		JLabel lblKristallgitter = new JLabel("Kristallgitter (in 10 ^ 10 m)");
 		lblKristallgitter.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblKristallgitter = new GridBagConstraints();
 		gbc_lblKristallgitter.fill = GridBagConstraints.BOTH;
@@ -246,17 +246,36 @@ public class ImpulsWellenlaengePanel extends JPanel {
 		gbc_separator_three.gridy = 9;
 		main.add(separator_three, gbc_separator_three);
 		
+		JLabel lblRechenweg = new JLabel("Rechenweg anzeigen");
+		lblRechenweg.setForeground(Color.WHITE);
+		GridBagConstraints gbc_lblRechenweg = new GridBagConstraints();
+		gbc_lblRechenweg.fill = GridBagConstraints.BOTH;
+		gbc_lblRechenweg.insets = new Insets(0, 10, 5, 5);
+		gbc_lblRechenweg.gridx = 0;
+		gbc_lblRechenweg.gridy = 10;
+		main.add(lblRechenweg, gbc_lblRechenweg);
+		
+		cbRechenweg = new JCheckBox();
+		cbRechenweg.setForeground(Color.WHITE);
+		cbRechenweg.setBackground(Color.BLACK);
+		GridBagConstraints gbc_cbRechenweg = new GridBagConstraints();
+		gbc_cbRechenweg.insets = new Insets(0, 0, 5, 10);
+		gbc_cbRechenweg.fill = GridBagConstraints.BOTH;
+		gbc_cbRechenweg.gridwidth = 2;
+		gbc_cbRechenweg.gridx = 1;
+		gbc_cbRechenweg.gridy = 10;
+		main.add(cbRechenweg, gbc_cbRechenweg);
+		
 		JLabel lblSave = new JLabel("Rechenweg speichern");
 		lblSave.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblSave = new GridBagConstraints();
 		gbc_lblSave.fill = GridBagConstraints.BOTH;
 		gbc_lblSave.insets = new Insets(0, 10, 5, 5);
 		gbc_lblSave.gridx = 0;
-		gbc_lblSave.gridy = 10;
+		gbc_lblSave.gridy = 11;
 		main.add(lblSave, gbc_lblSave);
 		
 		cbSave = new JCheckBox();
-		cbSave.setSelected(true);
 		cbSave.setForeground(Color.WHITE);
 		cbSave.setBackground(Color.BLACK);
 		GridBagConstraints gbc_cbSave = new GridBagConstraints();
@@ -264,7 +283,7 @@ public class ImpulsWellenlaengePanel extends JPanel {
 		gbc_cbSave.fill = GridBagConstraints.BOTH;
 		gbc_cbSave.gridwidth = 2;
 		gbc_cbSave.gridx = 1;
-		gbc_cbSave.gridy = 10;
+		gbc_cbSave.gridy = 11;
 		main.add(cbSave, gbc_cbSave);
 		
 		JLabel lblDiagram = new JLabel("Diagramm anzeigen");
@@ -273,7 +292,7 @@ public class ImpulsWellenlaengePanel extends JPanel {
 		gbc_lblDiagram.fill = GridBagConstraints.BOTH;
 		gbc_lblDiagram.insets = new Insets(0, 10, 5, 5);
 		gbc_lblDiagram.gridx = 0;
-		gbc_lblDiagram.gridy = 11;
+		gbc_lblDiagram.gridy = 12;
 		main.add(lblDiagram, gbc_lblDiagram);
 		
 		cbDiagramm = new JCheckBox();
@@ -285,29 +304,8 @@ public class ImpulsWellenlaengePanel extends JPanel {
 		gbc_cbDiagramm.insets = new Insets(0, 0, 5, 10);
 		gbc_cbDiagramm.gridwidth = 2;
 		gbc_cbDiagramm.gridx = 1;
-		gbc_cbDiagramm.gridy = 11;
+		gbc_cbDiagramm.gridy = 12;
 		main.add(cbDiagramm, gbc_cbDiagramm);
-		
-		JLabel lblRechenweg = new JLabel("Rechenweg anzeigen");
-		lblRechenweg.setForeground(Color.WHITE);
-		GridBagConstraints gbc_lblRechenweg = new GridBagConstraints();
-		gbc_lblRechenweg.fill = GridBagConstraints.BOTH;
-		gbc_lblRechenweg.insets = new Insets(0, 10, 5, 5);
-		gbc_lblRechenweg.gridx = 0;
-		gbc_lblRechenweg.gridy = 12;
-		main.add(lblRechenweg, gbc_lblRechenweg);
-		
-		cbRechenweg = new JCheckBox();
-		cbRechenweg.setSelected(true);
-		cbRechenweg.setForeground(Color.WHITE);
-		cbRechenweg.setBackground(Color.BLACK);
-		GridBagConstraints gbc_cbRechenweg = new GridBagConstraints();
-		gbc_cbRechenweg.insets = new Insets(0, 0, 5, 10);
-		gbc_cbRechenweg.fill = GridBagConstraints.BOTH;
-		gbc_cbRechenweg.gridwidth = 2;
-		gbc_cbRechenweg.gridx = 1;
-		gbc_cbRechenweg.gridy = 12;
-		main.add(cbRechenweg, gbc_cbRechenweg);
 		
 		JSeparator separator_four = new JSeparator();
 		separator_four.setForeground(Color.WHITE);
@@ -332,6 +330,8 @@ public class ImpulsWellenlaengePanel extends JPanel {
 		PanelAction panel_action = new PanelAction(this);
 		
 		// anzahl der elemente
+
+		txtAnzahlDerElemente.addActionListener((e) -> panel_action.set_anzahl_der_elemente());
 		btn_check.addActionListener((e) -> panel_action.set_anzahl_der_elemente());
 		
 		// aktuelles element
@@ -346,7 +346,6 @@ public class ImpulsWellenlaengePanel extends JPanel {
 		txtK.addKeyListener( addKeyListener(panel_action) );
 		
 		// berechnen
-		txtAnzahlDerElemente.addActionListener((e) -> panel_action.berechnen());
 		txtBeschleunigungsspanne.addActionListener((e) -> panel_action.berechnen());
 		txtInterferenzRadius.addActionListener((e) -> panel_action.berechnen());
 		txtLaenge.addActionListener((e) -> panel_action.berechnen());
