@@ -42,7 +42,6 @@ public class DiagramFrame extends JFrame {
 		contentPane.setBackground( Color.BLACK );
 		
 		try {
-			
 			XYDotRenderer dot = new XYDotRenderer();		
 			dot.setDotHeight(5);
 			dot.setDotWidth(5);
@@ -88,19 +87,19 @@ public class DiagramFrame extends JFrame {
 		gbc_lblFktgleichungValue.gridy = 0;
 		foot.add(lblFktgleichungValue, gbc_lblFktgleichungValue);
 		
-		JLabel lblProportionalittsfaktor = new JLabel("Proportionalit\u00E4tsfaktor");
-		lblProportionalittsfaktor.setForeground(Color.WHITE);
-		GridBagConstraints gbc_lblProportionalittsfaktor = new GridBagConstraints();
-		gbc_lblProportionalittsfaktor.insets = new Insets(0, 0, 0, 5);
-		gbc_lblProportionalittsfaktor.gridx = 0;
-		gbc_lblProportionalittsfaktor.gridy = 1;
-		foot.add(lblProportionalittsfaktor, gbc_lblProportionalittsfaktor);
+		JLabel lblProportionalitaetsfaktor = new JLabel("Proportionalit\u00E4tsfaktor");
+		lblProportionalitaetsfaktor.setForeground(Color.WHITE);
+		GridBagConstraints gbc_lblProportionalitaetsfaktor = new GridBagConstraints();
+		gbc_lblProportionalitaetsfaktor.insets = new Insets(0, 0, 0, 5);
+		gbc_lblProportionalitaetsfaktor.gridx = 0;
+		gbc_lblProportionalitaetsfaktor.gridy = 1;
+		foot.add(lblProportionalitaetsfaktor, gbc_lblProportionalitaetsfaktor);
 		
-		JLabel lblProportionalitätsfaktorValue = new JLabel("New label");
-		GridBagConstraints gbc_lblProportionalitätsfaktorValue = new GridBagConstraints();
-		gbc_lblProportionalitätsfaktorValue.gridx = 1;
-		gbc_lblProportionalitätsfaktorValue.gridy = 1;
-		foot.add(lblProportionalitätsfaktorValue, gbc_lblProportionalitätsfaktorValue);
+		JLabel lblProportionalitaetsfaktorValue = new JLabel("New label");
+		GridBagConstraints gbc_lblProportionalitaetsfaktorValue = new GridBagConstraints();
+		gbc_lblProportionalitaetsfaktorValue.gridx = 1;
+		gbc_lblProportionalitaetsfaktorValue.gridy = 1;
+		foot.add(lblProportionalitaetsfaktorValue, gbc_lblProportionalitaetsfaktorValue);
 	}
 
 	
