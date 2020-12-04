@@ -1,6 +1,7 @@
 package gui.panel.impulswellenlaenge;
 
 import java.awt.EventQueue;
+import java.util.LinkedList;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -9,70 +10,162 @@ import org.json.JSONObject;
 
 import gui.panel.ImpulsWellenlaengePanel;
 import main.App;
+import rechenoperationen.Helper;
 import rechenoperationen.ImpulsWellenlaenge;
 
 public class PanelAction {
+	public final double EMPTY_VALUE 	= -1.12321312321;
+	public final int MIN_COUNT_ELEMENTS = 1;
+	
 	private ImpulsWellenlaengePanel elektronenPanel;
-	private boolean invalid_inputs;
+	
+	// input des aktuellen elementes
+	public int anzahl_der_elemente;
+	public int aktuelles_element_index;
+	
+	// dynamische inputs
+	private LinkedList<Double> beschleunigungsspanne;
+	private LinkedList<Double> interferenz_radius;
+
+	// statische inputs
+	private double laenge;
+	private double kristallgitter;
+	private int k;
+	
+	private boolean save_rechenweg;
+	private boolean show_rechenweg;
+	private boolean show_diagramm;
 	
 	public PanelAction(ImpulsWellenlaengePanel elektronenPanel) {
 		this.elektronenPanel = elektronenPanel;
+		
+		anzahl_der_elemente = 2;
+		aktuelles_element_index = 0;
+		elektronenPanel.txtAnzahlDerElemente.setText(String.valueOf(anzahl_der_elemente));
+		elektronenPanel.lblCurrentStep.setText( (aktuelles_element_index + 1) + " / " + anzahl_der_elemente + " Elementen" );
+		
+		// dynamische daten
+		erzeuge_leere_speicher();
+		
+		// statische daten
+		laenge 			= EMPTY_VALUE;
+		kristallgitter 	= EMPTY_VALUE;
+		
+		k = 1;
+		elektronenPanel.txtK.setText(String.valueOf(k));
+		
+		save_rechenweg 	= true;
+		show_rechenweg	= true;
+		show_diagramm	= true;
 	}
 	
-	public void check_checkboxen() {
-		// Fortlaufende Actionen initialisieren
-		boolean save_rechenweg 	= elektronenPanel.cbSave.isSelected();
-		boolean show_rechenweg 	= elektronenPanel.cbRechenweg.isSelected();
-		boolean show_diagramm 	= elektronenPanel.cbDiagramm.isSelected();
+	// setter
+	public void set_anzahl_der_elemente() {
+		int neue_anzahl_der_elemente = get_textfield_value_int(elektronenPanel.txtAnzahlDerElemente, "");
 		
-		if( ( !save_rechenweg && show_diagramm && !show_rechenweg )
-			|| ( !save_rechenweg && show_diagramm && !show_rechenweg )
-			|| ( save_rechenweg && !show_diagramm && !show_rechenweg )) {
+		if(neue_anzahl_der_elemente < MIN_COUNT_ELEMENTS) {
+			neue_anzahl_der_elemente = MIN_COUNT_ELEMENTS;
+			elektronenPanel.txtAnzahlDerElemente.setText(String.valueOf(neue_anzahl_der_elemente));
 			
-			elektronenPanel.cbSave.setEnabled(!save_rechenweg);
-			elektronenPanel.cbDiagramm.setEnabled(!show_diagramm);
-			elektronenPanel.cbRechenweg.setEnabled(!show_rechenweg);
-			
+			JOptionPane.showMessageDialog(null, "Die Anzahl der Elemente darf höchsten "  + MIN_COUNT_ELEMENTS + " betragen", "Fehlerhafte Anzahl an Elementen", JOptionPane.WARNING_MESSAGE);
+		}
+		
+		anzahl_der_elemente 	= neue_anzahl_der_elemente;
+		aktuelles_element_index = 0;
+		
+		set_aktuelles_element_werte();
+		erzeuge_leere_speicher();
+	}
+	
+	public void set_aktuelles_element_index(boolean naechstes) {
+		if(naechstes) {
+			if(aktuelles_element_index + 1 == anzahl_der_elemente) {
+				aktuelles_element_index = 0;
+			} else {
+				aktuelles_element_index++;
+			}
 		} else {
-			
-			elektronenPanel.cbSave.setEnabled(true);
-			elektronenPanel.cbDiagramm.setEnabled(true);
-			elektronenPanel.cbRechenweg.setEnabled(true);
-			
+			if(aktuelles_element_index == 0) {
+				aktuelles_element_index = anzahl_der_elemente - 1;
+			} else {
+				aktuelles_element_index--;
+			}
+		}
+		
+		set_aktuelles_element_werte();
+	}
+	
+	private void set_aktuelles_element_werte() {
+		elektronenPanel.lblCurrentStep.setText( (aktuelles_element_index + 1) + " / " + anzahl_der_elemente + " Elementen" );
+		
+		// values setzten
+		double elem_beschleunigungsspanne 	= beschleunigungsspanne.get(aktuelles_element_index);
+		double elem_interferenz_radius 		= interferenz_radius.get(aktuelles_element_index);
+
+		elektronenPanel.txtBeschleunigungsspanne.setText( elem_beschleunigungsspanne == EMPTY_VALUE ? "" : String.valueOf(elem_beschleunigungsspanne));
+		elektronenPanel.txtInterferenzRadius.setText( elem_interferenz_radius == EMPTY_VALUE ? "" : String.valueOf(elem_interferenz_radius));
+	}
+	
+	private void erzeuge_leere_speicher() {
+		beschleunigungsspanne 	= new LinkedList<Double>();
+		interferenz_radius 		= new LinkedList<Double>();
+		for(int i = 0; i < this.anzahl_der_elemente; i++) {
+			beschleunigungsspanne.add(EMPTY_VALUE);
+			interferenz_radius.add(EMPTY_VALUE);
 		}
 	}
 	
-	public void calculate() {
+	public void set_beschleunigungsspanne() {
+		double number = get_textfield_value_double(elektronenPanel.txtBeschleunigungsspanne, "");
+		beschleunigungsspanne.set(aktuelles_element_index, number);
+	}
+	
+	public void set_interferenzradius() {
+		double number = get_textfield_value_double(elektronenPanel.txtInterferenzRadius, "");
+		interferenz_radius.set(aktuelles_element_index, number);
+	}
+	
+	public void set_laenge() {
+		laenge = get_textfield_value_double(elektronenPanel.txtLaenge, "");
+	}
+	
+	public void set_kristallgitter() {
+		kristallgitter = get_textfield_value_double(elektronenPanel.txtKristallgitter, "");
+	}
+
+	public void set_k() {
+		k = get_textfield_value_int(elektronenPanel.txtK, "");
+	}
+	
+	public void set_checkboxen() {
 		// Fortlaufende Actionen initialisieren
-		boolean save_rechenweg 	= elektronenPanel.cbSave.isSelected();
-		boolean show_rechenweg 	= elektronenPanel.cbRechenweg.isSelected();
-		boolean show_diagramm 	= elektronenPanel.cbDiagramm.isSelected();
+		save_rechenweg 	= elektronenPanel.cbSave.isSelected();
+		show_rechenweg 	= elektronenPanel.cbRechenweg.isSelected();
+		show_diagramm 	= elektronenPanel.cbDiagramm.isSelected();
 		
-		invalid_inputs = false;
-		
-		// Values initialisieren
-		double beschleunigungsspanne_one = get_textfield_value(elektronenPanel.txtBeschleunigungsspanne_one);
-		double beschleunigungsspanne_two = get_textfield_value(elektronenPanel.txtBeschleunigungsspanne_two);
-		double[] beschleunigungsspanne = new double[]{ beschleunigungsspanne_one, beschleunigungsspanne_two };
-		
-		double radius_der_welle_one = get_textfield_value(elektronenPanel.txtRadius_one);
-		double radius_der_welle_two = get_textfield_value(elektronenPanel.txtRadius_two);
-		double[] radius_der_welle = new double[]{ radius_der_welle_one, radius_der_welle_two };
-		
-		double kristallgitter = get_textfield_value(elektronenPanel.txtKristallgitter) * Math.pow(10, -10);
-		
-		double laenge = get_textfield_value(elektronenPanel.txtLaenge);
-		
-		double k = get_textfield_value(elektronenPanel.txtK);
-		
-		if(invalid_inputs) {
+		if( ( !save_rechenweg && show_diagramm && !show_rechenweg )
+			|| ( !save_rechenweg && !show_diagramm && show_rechenweg )
+			|| ( save_rechenweg && !show_diagramm && !show_rechenweg )) {
+			elektronenPanel.cbSave.setEnabled(!save_rechenweg);
+			elektronenPanel.cbDiagramm.setEnabled(!show_diagramm);
+			elektronenPanel.cbRechenweg.setEnabled(!show_rechenweg);
+		} else {
+			elektronenPanel.cbSave.setEnabled(true);
+			elektronenPanel.cbDiagramm.setEnabled(true);
+			elektronenPanel.cbRechenweg.setEnabled(true);
+		}
+	}
+	
+	// other
+	public void berechnen() {
+		if( !guelltige_daten() ) {
 			JOptionPane.showMessageDialog(null, "Bitte korrigieren Sie Ihre Eingaben.", "Fehlerhafte Eingaben", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 		
 		ImpulsWellenlaenge iw;
 		try {
-			iw = new ImpulsWellenlaenge(beschleunigungsspanne, radius_der_welle, kristallgitter, laenge, (int)k);
+			iw = new ImpulsWellenlaenge(Helper.to_array(beschleunigungsspanne), Helper.to_array(interferenz_radius), kristallgitter, laenge, k);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Leider ist ein Systemfehler aufgetreten.\nVersuchen Sie es zu einem späteren Zeitpunkt erneut...", "Systemfehler", JOptionPane.ERROR_MESSAGE);
 			return;
@@ -97,18 +190,47 @@ public class PanelAction {
 			EventQueue.invokeLater(() -> start_diagramm(diagramm_json));
 		}
 	}
+
+	// check
+	private boolean guelltige_daten() {
+		// dynamische Daten
+		for(int i = 0; i < this.anzahl_der_elemente; i++) {
+			if(beschleunigungsspanne.get(i) == EMPTY_VALUE
+				|| interferenz_radius.get(i) == EMPTY_VALUE) {
+				return false;
+			}
+		}
+		
+		// statische Daten
+		if(laenge == EMPTY_VALUE
+			|| kristallgitter == EMPTY_VALUE
+			|| k == EMPTY_VALUE) {
+			return false;
+		}
+
+		return true;
+	}
 	
-	private double get_textfield_value(JTextField txtField) {
+	// getter (private)
+	private int get_textfield_value_int(JTextField txtField, String default_value) {
 		try {
-			return Double.parseDouble( txtField.getText() );
+			return Integer.parseInt( txtField.getText() );
 		} catch (Exception e) {
-			invalid_inputs = true;
-			txtField.setText("");
-			
-			return Float.NaN;
+			txtField.setText(default_value);
+			return (int) EMPTY_VALUE;
 		}
 	}
 	
+	private double get_textfield_value_double(JTextField txtField, String default_value) {
+		try {
+			return Double.parseDouble( txtField.getText() );
+		} catch (Exception e) {
+			txtField.setText(default_value);
+			return EMPTY_VALUE;
+		}
+	}
+	
+	// start
 	private void start_diagramm(JSONObject data_json)  {
 		try {
 			DiagramFrame iwd = new DiagramFrame(data_json);

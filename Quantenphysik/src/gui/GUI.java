@@ -27,7 +27,7 @@ public class GUI extends JFrame {
 	public GUI() {
 		setBackground(Color.BLACK);
 		int width 	= 550;
-		int height 	= 400;
+		int height 	= 450;
 		
 		setTitle("Quantenphysik");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -66,7 +66,7 @@ public class GUI extends JFrame {
 		JPanel homePanel = new HomePanel();
 		contentPane.add(homePanel, HOME_PANEL_NAME);
 		
-		JPanel impulsWellenlaengePanel = new ImpulsWellenlaengePanel(width);
+		JPanel impulsWellenlaengePanel = new ImpulsWellenlaengePanel(height, width);
 		contentPane.add(impulsWellenlaengePanel, ELEKTONEN_PANEL_NAME);
 		
 		show_panel(HOME_PANEL_NAME);
