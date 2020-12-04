@@ -11,24 +11,24 @@ import org.json.JSONObject;
 import main.App;
 
 public class ImpulsWellenlaenge {
-	public static final double elektronenmasse 				= 9.10938356 * Math.pow(10, -31); // in kg
-	public static final double elektronengeschwindigkeit 	= 1.602 * Math.pow(10, -19); // in C
+	public static final double elektronenmasse 	= 9.10938356 * Math.pow(10, -31); // in kg
+	public static final double elementarladung 	= 1.602 * Math.pow(10, -19); // in C
 	
 	private double[] beschleunigungsspanne; // in v
-	private double[] radius_der_welle; // in cm
+	private double[] interferenzradius; // in cm
 	private double kristallgitter;
 	private double laenge; // in cm
 	private double k;
 	
 	// Konstruktor
-	public ImpulsWellenlaenge(double[] beschleunigungsspanne, double[] radius_der_welle, double kristallgitter, double laenge) throws Exception {
-		this(beschleunigungsspanne, radius_der_welle, kristallgitter, laenge, 1);
+	public ImpulsWellenlaenge(double[] beschleunigungsspanne, double[] interferenzradius, double kristallgitter, double laenge) throws Exception {
+		this(beschleunigungsspanne, interferenzradius, kristallgitter, laenge, 1);
 	}
 	
-	public ImpulsWellenlaenge(double[] beschleunigungsspanne, double[] radius_der_welle, double kristallgitter, double laenge, int k) throws Exception {
+	public ImpulsWellenlaenge(double[] beschleunigungsspanne, double[] interferenzradius, double kristallgitter, double laenge, int k) throws Exception {
 		// Prüfen, ob alle Parameter valide sind
-		if( beschleunigungsspanne == null || radius_der_welle == null || 
-			beschleunigungsspanne.length != radius_der_welle.length ||
+		if( beschleunigungsspanne == null || interferenzradius == null || 
+			beschleunigungsspanne.length != interferenzradius.length ||
 			kristallgitter <= 0 || 
 			laenge <= 0 ||
 			k <= 0) {
@@ -40,7 +40,7 @@ public class ImpulsWellenlaenge {
 		
 		// Parameter initialisieren
 		this.beschleunigungsspanne 	= beschleunigungsspanne;
-		this.radius_der_welle 		= radius_der_welle;
+		this.interferenzradius 		= interferenzradius;
 		this.kristallgitter 		= kristallgitter;
 		this.laenge 				= laenge;
 		this.k						= k;
@@ -52,7 +52,7 @@ public class ImpulsWellenlaenge {
 		double[] res 	= new double[length];
 		
 		for(int i = 0; i < length; i++) {
-			res[i] = get_lamda(radius_der_welle[i]);
+			res[i] = get_lamda(interferenzradius[i]);
 		}
 		return res;
 	}
@@ -78,7 +78,7 @@ public class ImpulsWellenlaenge {
 	}
 	
 	private double get_impuls(double u) {
-		return Math.sqrt( 2 * elektronenmasse * elektronengeschwindigkeit * u);
+		return Math.sqrt( 2 * elektronenmasse * elementarladung * u);
 	}
 	
 	// resultat -> save
@@ -129,7 +129,7 @@ public class ImpulsWellenlaenge {
 			object_json.put("beschleunigungsspanne", get_array_json( beschleunigungsspanne ));
 			
 			// Radius
-			object_json.put("radius", get_array_json( radius_der_welle ));
+			object_json.put("radius", get_array_json( interferenzradius ));
 			
 			// Kristallgitter
 			object_json.put("kristallgitter", kristallgitter);

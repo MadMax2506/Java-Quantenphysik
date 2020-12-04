@@ -26,7 +26,7 @@ public class Rechenweg extends JFrame {
 	public JComboBox<String> comboBox;
 	
 	public JLabel lblBeschleunigungsspanneValue;
-	public JLabel lblWellenradiusValue;
+	public JLabel lblInterferenzradiusValue;
 	public JLabel lblLaengeValue;
 	public JLabel lblKristallgitterValue;
 	public JLabel lblKValue;
@@ -100,26 +100,26 @@ public class Rechenweg extends JFrame {
 		gbc_lblBeschleunigungsspanneValue.gridy = 0;
 		main.add(lblBeschleunigungsspanneValue, gbc_lblBeschleunigungsspanneValue);
 		
-		JLabel lblWellenradius = new JLabel("Wellenradius (r)");
-		lblWellenradius.setHorizontalAlignment(SwingConstants.LEFT);
-		lblWellenradius.setForeground(Color.WHITE);
-		GridBagConstraints gbc_lblWellenradius = new GridBagConstraints();
-		gbc_lblWellenradius.fill = GridBagConstraints.BOTH;
-		gbc_lblWellenradius.insets = new Insets(0, 10, 5, 10);
-		gbc_lblWellenradius.gridx = 0;
-		gbc_lblWellenradius.gridy = 1;
-		main.add(lblWellenradius, gbc_lblWellenradius);
+		JLabel lblInterferenzradius = new JLabel("Interferenzradius (r)");
+		lblInterferenzradius.setHorizontalAlignment(SwingConstants.LEFT);
+		lblInterferenzradius.setForeground(Color.WHITE);
+		GridBagConstraints gbc_lblInterferenzradius = new GridBagConstraints();
+		gbc_lblInterferenzradius.fill = GridBagConstraints.BOTH;
+		gbc_lblInterferenzradius.insets = new Insets(0, 10, 5, 10);
+		gbc_lblInterferenzradius.gridx = 0;
+		gbc_lblInterferenzradius.gridy = 1;
+		main.add(lblInterferenzradius, gbc_lblInterferenzradius);
 		
-		lblWellenradiusValue = new JLabel("");
-		lblWellenradiusValue.setHorizontalAlignment(SwingConstants.LEFT);
-		lblWellenradiusValue.setForeground(Color.WHITE);
-		GridBagConstraints gbc_lblWellenradiusValue = new GridBagConstraints();
-		gbc_lblWellenradiusValue.gridwidth = 2;
-		gbc_lblWellenradiusValue.fill = GridBagConstraints.BOTH;
-		gbc_lblWellenradiusValue.insets = new Insets(0, 10, 5, 10);
-		gbc_lblWellenradiusValue.gridx = 1;
-		gbc_lblWellenradiusValue.gridy = 1;
-		main.add(lblWellenradiusValue, gbc_lblWellenradiusValue);
+		lblInterferenzradiusValue = new JLabel("");
+		lblInterferenzradiusValue.setHorizontalAlignment(SwingConstants.LEFT);
+		lblInterferenzradiusValue.setForeground(Color.WHITE);
+		GridBagConstraints gbc_lblInterferenzradiusValue = new GridBagConstraints();
+		gbc_lblInterferenzradiusValue.gridwidth = 2;
+		gbc_lblInterferenzradiusValue.fill = GridBagConstraints.BOTH;
+		gbc_lblInterferenzradiusValue.insets = new Insets(0, 10, 5, 10);
+		gbc_lblInterferenzradiusValue.gridx = 1;
+		gbc_lblInterferenzradiusValue.gridy = 1;
+		main.add(lblInterferenzradiusValue, gbc_lblInterferenzradiusValue);
 		
 		JLabel lblLaenge = new JLabel("Länge (l)");
 		lblLaenge.setHorizontalAlignment(SwingConstants.LEFT);
@@ -218,26 +218,26 @@ public class Rechenweg extends JFrame {
 		gbc_lblElektronenmasseValue.gridy = 6;
 		main.add(lblElektronenmasseValue, gbc_lblElektronenmasseValue);
 		
-		JLabel lblElektronengeschwindigkeit = new JLabel("Elektronengeschwindigkeit (e)");
-		lblElektronengeschwindigkeit.setHorizontalAlignment(SwingConstants.LEFT);
-		lblElektronengeschwindigkeit.setForeground(Color.WHITE);
-		GridBagConstraints gbc_lblElektronengeschwindigkeit = new GridBagConstraints();
-		gbc_lblElektronengeschwindigkeit.fill = GridBagConstraints.BOTH;
-		gbc_lblElektronengeschwindigkeit.insets = new Insets(0, 10, 5, 10);
-		gbc_lblElektronengeschwindigkeit.gridx = 0;
-		gbc_lblElektronengeschwindigkeit.gridy = 7;
-		main.add(lblElektronengeschwindigkeit, gbc_lblElektronengeschwindigkeit);
+		JLabel lblElementarladung = new JLabel("Elementarladung (e)");
+		lblElementarladung.setHorizontalAlignment(SwingConstants.LEFT);
+		lblElementarladung.setForeground(Color.WHITE);
+		GridBagConstraints gbc_lblElementarladung = new GridBagConstraints();
+		gbc_lblElementarladung.fill = GridBagConstraints.BOTH;
+		gbc_lblElementarladung.insets = new Insets(0, 10, 5, 10);
+		gbc_lblElementarladung.gridx = 0;
+		gbc_lblElementarladung.gridy = 7;
+		main.add(lblElementarladung, gbc_lblElementarladung);
 		
-		JLabel lblElektronengeschwindigkeitValue = new JLabel( Helper.round(ImpulsWellenlaenge.elektronengeschwindigkeit * Math.pow(10, 19), 4) + " 10 ^ -19 C");
-		lblElektronengeschwindigkeitValue.setHorizontalAlignment(SwingConstants.LEFT);
-		lblElektronengeschwindigkeitValue.setForeground(Color.WHITE);
-		GridBagConstraints gbc_lblElektronengeschwindigkeitValue = new GridBagConstraints();
-		gbc_lblElektronengeschwindigkeitValue.fill = GridBagConstraints.BOTH;
-		gbc_lblElektronengeschwindigkeitValue.gridwidth = 2;
-		gbc_lblElektronengeschwindigkeitValue.insets = new Insets(0, 10, 5, 10);
-		gbc_lblElektronengeschwindigkeitValue.gridx = 1;
-		gbc_lblElektronengeschwindigkeitValue.gridy = 7;
-		main.add(lblElektronengeschwindigkeitValue, gbc_lblElektronengeschwindigkeitValue);
+		JLabel lblElementarladungValue = new JLabel( Helper.round(ImpulsWellenlaenge.elementarladung * Math.pow(10, 19), 4) + " 10 ^ -19 C");
+		lblElementarladungValue.setHorizontalAlignment(SwingConstants.LEFT);
+		lblElementarladungValue.setForeground(Color.WHITE);
+		GridBagConstraints gbc_lblElementarladungValue = new GridBagConstraints();
+		gbc_lblElementarladungValue.fill = GridBagConstraints.BOTH;
+		gbc_lblElementarladungValue.gridwidth = 2;
+		gbc_lblElementarladungValue.insets = new Insets(0, 10, 5, 10);
+		gbc_lblElementarladungValue.gridx = 1;
+		gbc_lblElementarladungValue.gridy = 7;
+		main.add(lblElementarladungValue, gbc_lblElementarladungValue);
 		
 		JSeparator separator_two = new JSeparator();
 		separator_two.setBackground(Color.WHITE);

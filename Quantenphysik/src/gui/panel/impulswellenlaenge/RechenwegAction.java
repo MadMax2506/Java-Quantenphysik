@@ -38,7 +38,7 @@ public class RechenwegAction {
 		String impuls_rechenweg = "sqrt(2 * m * e * U)";
 		
 		rechenweg.lblBeschleunigungsspanneValue.setText( beschleunigungsspanne );
-		rechenweg.lblWellenradiusValue.setText( radius );
+		rechenweg.lblInterferenzradiusValue.setText( radius );
 		rechenweg.lblLaengeValue.setText( laenge );
 		rechenweg.lblKristallgitterValue.setText( kristallgitter );
 		rechenweg.lblKValue.setText( k );

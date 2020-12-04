@@ -1,7 +1,15 @@
 package gui.panel.impulswellenlaenge;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -17,10 +25,22 @@ public class DiagramFrame extends JFrame {
 
 	private static final long serialVersionUID = -6746551090428171825L;
 
+	private JPanel contentPane;
+	
 	public DiagramFrame(JSONObject data_json) {
+		int width = 550;
+		int height = 300;
+		
+		setBackground(Color.BLACK);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, width, height);
 
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(new BorderLayout());
+		contentPane.setBackground( Color.BLACK );
+		
 		try {
 			
 			XYDotRenderer dot = new XYDotRenderer();		
@@ -37,11 +57,50 @@ public class DiagramFrame extends JFrame {
 			JFreeChart chart = new JFreeChart(plot);
 			
 			ChartPanel chartPanel = new ChartPanel(chart);
-			setContentPane(chartPanel);
+			contentPane.add(chartPanel, BorderLayout.CENTER);
 		} catch (Exception e) {
 			e.printStackTrace();
-			setContentPane(new JPanel());
 		}
+		
+		JPanel foot = new JPanel();
+		foot.setForeground(Color.WHITE);
+		foot.setBackground(Color.BLACK);
+		contentPane.add(foot, BorderLayout.SOUTH);
+		GridBagLayout gbl_foot = new GridBagLayout();
+		gbl_foot.columnWidths = new int[]{(width * 1) / 5, (width * 4) / 5, 0};
+		gbl_foot.rowHeights = new int[]{0, 0, 0};
+		gbl_foot.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		gbl_foot.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		foot.setLayout(gbl_foot);
+		
+		JLabel lblFktgleichung = new JLabel("Funktionsgleichung");
+		lblFktgleichung.setForeground(Color.WHITE);
+		GridBagConstraints gbc_lblFktgleichung = new GridBagConstraints();
+		gbc_lblFktgleichung.insets = new Insets(0, 0, 5, 5);
+		gbc_lblFktgleichung.gridx = 0;
+		gbc_lblFktgleichung.gridy = 0;
+		foot.add(lblFktgleichung, gbc_lblFktgleichung);
+		
+		JLabel lblFktgleichungValue = new JLabel("New label");
+		GridBagConstraints gbc_lblFktgleichungValue = new GridBagConstraints();
+		gbc_lblFktgleichungValue.insets = new Insets(0, 0, 5, 0);
+		gbc_lblFktgleichungValue.gridx = 1;
+		gbc_lblFktgleichungValue.gridy = 0;
+		foot.add(lblFktgleichungValue, gbc_lblFktgleichungValue);
+		
+		JLabel lblProportionalittsfaktor = new JLabel("Proportionalit\u00E4tsfaktor");
+		lblProportionalittsfaktor.setForeground(Color.WHITE);
+		GridBagConstraints gbc_lblProportionalittsfaktor = new GridBagConstraints();
+		gbc_lblProportionalittsfaktor.insets = new Insets(0, 0, 0, 5);
+		gbc_lblProportionalittsfaktor.gridx = 0;
+		gbc_lblProportionalittsfaktor.gridy = 1;
+		foot.add(lblProportionalittsfaktor, gbc_lblProportionalittsfaktor);
+		
+		JLabel lblProportionalitätsfaktorValue = new JLabel("New label");
+		GridBagConstraints gbc_lblProportionalitätsfaktorValue = new GridBagConstraints();
+		gbc_lblProportionalitätsfaktorValue.gridx = 1;
+		gbc_lblProportionalitätsfaktorValue.gridy = 1;
+		foot.add(lblProportionalitätsfaktorValue, gbc_lblProportionalitätsfaktorValue);
 	}
 
 	
