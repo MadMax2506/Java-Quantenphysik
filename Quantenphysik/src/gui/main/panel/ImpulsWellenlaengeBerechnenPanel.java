@@ -20,7 +20,7 @@ import javax.swing.JTextField;
 
 import rechenoperationen.ImpulsWellenlaenge;
 
-public class ImpulsWellenlaengePanel extends JPanel {
+public class ImpulsWellenlaengeBerechnenPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
@@ -43,7 +43,7 @@ public class ImpulsWellenlaengePanel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public ImpulsWellenlaengePanel(int height, int width) {
+	public ImpulsWellenlaengeBerechnenPanel(int height, int width) {
 		setLayout(new BorderLayout(0, 0));
 		
 		JPanel head = new JPanel();
@@ -298,7 +298,7 @@ public class ImpulsWellenlaengePanel extends JPanel {
 
 		
 		// aktionen initalisieren
-		ImpulsWellenlaengeAction panel_action = new ImpulsWellenlaengeAction(this);
+		ImpulsWellenlaengeBerechnenAction panel_action = new ImpulsWellenlaengeBerechnenAction(this);
 		
 		// anzahl der elemente
 
@@ -331,7 +331,7 @@ public class ImpulsWellenlaengePanel extends JPanel {
 	}
 
 	
-	private KeyListener addKeyListener(ImpulsWellenlaengeAction panel_action) {
+	private KeyListener addKeyListener(ImpulsWellenlaengeBerechnenAction panel_action) {
 		return new KeyListener() {	
 			@Override
 			public void keyTyped(KeyEvent e) {}

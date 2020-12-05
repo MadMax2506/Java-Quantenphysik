@@ -14,11 +14,11 @@ import gui.other.impulswellenlaenge.RechenwegGUI;
 import rechenoperationen.Helper;
 import rechenoperationen.ImpulsWellenlaenge;
 
-public class ImpulsWellenlaengeAction {
+public class ImpulsWellenlaengeBerechnenAction {
 	public final double EMPTY_VALUE 	= -1.12321312321;
 	public final int MIN_COUNT_ELEMENTS = 1;
 	
-	private ImpulsWellenlaengePanel elektronenPanel;
+	private ImpulsWellenlaengeBerechnenPanel elektronenPanel;
 	
 	// input des aktuellen elementes
 	public int anzahl_der_elemente;
@@ -37,7 +37,7 @@ public class ImpulsWellenlaengeAction {
 	private boolean show_rechenweg;
 	private boolean show_diagramm;
 	
-	public ImpulsWellenlaengeAction(ImpulsWellenlaengePanel elektronenPanel) {
+	public ImpulsWellenlaengeBerechnenAction(ImpulsWellenlaengeBerechnenPanel elektronenPanel) {
 		this.elektronenPanel = elektronenPanel;
 		
 		set_default();
@@ -182,23 +182,24 @@ public class ImpulsWellenlaengeAction {
 		}
 		
 		ImpulsWellenlaenge impuls_wellenlaenge;
+		JSONObject data_json;
 		try {
 			impuls_wellenlaenge = new ImpulsWellenlaenge(Helper.to_array(beschleunigungsspanne), Helper.to_array(interferenz_radius), kristallgitter, laenge, k);
+			data_json = impuls_wellenlaenge.get_json();
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Leider ist ein Systemfehler aufgetreten.\nVersuchen Sie es zu einem späteren Zeitpunkt erneut...", "Systemfehler", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
-		
+
 		//
 		if(save_rechenweg) {
 			String name = JOptionPane.showInputDialog(null, "Bitte geben Sie eine den Namen der Datei ein (ohne \".json\").\nDie Datei wird in \"" + App.user_folder + "\" gespeichert.\n", "Dateiname", JOptionPane.PLAIN_MESSAGE);
 			
 			if(name != null) {
-				impuls_wellenlaenge.save_json( name + ".json" );
+				impuls_wellenlaenge.save_json( name + ".json", data_json );
 			}
 		}
 		
-		JSONObject data_json = impuls_wellenlaenge.get_json();
 		if(show_rechenweg) {
 			JSONObject rechenweg_json = data_json;
 			EventQueue.invokeLater(() -> start_rechenweg(rechenweg_json));

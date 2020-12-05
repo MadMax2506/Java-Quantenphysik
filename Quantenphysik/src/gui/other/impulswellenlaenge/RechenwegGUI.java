@@ -63,8 +63,7 @@ public class RechenwegGUI extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
-		JScrollPane impulsWellenlaengeScrollPanel = new JScrollPane(contentPane, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		setContentPane(impulsWellenlaengeScrollPanel);
+		setContentPane(contentPane);
 		
 		comboBox = new JComboBox<String>();
 		String[] combobox_labels = frame_action.get_combobox_labels();
@@ -76,13 +75,14 @@ public class RechenwegGUI extends JFrame {
 		}
 		
 		JPanel main = new JPanel();
-		contentPane.add(main, BorderLayout.CENTER);
 		GridBagLayout gbl_main = new GridBagLayout();
 		gbl_main.columnWidths = new int[]{(width * 2) / 5, (width * 1) / 5, (width * 2) / 5, 0};
 		gbl_main.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
 		gbl_main.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 		gbl_main.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0};
 		main.setLayout(gbl_main);
+		JScrollPane mainScrollPanel = new JScrollPane(main, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		contentPane.add(mainScrollPanel, BorderLayout.CENTER);
 		
 		JLabel lblBeschleunigungsspanne = new JLabel("Beschleunigungsspanne (" + ImpulsWellenlaenge.FORMELZEICHEN_BESCHLEUNIGUNGSSPANNE + ")");
 		lblBeschleunigungsspanne.setHorizontalAlignment(SwingConstants.LEFT);

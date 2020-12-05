@@ -11,7 +11,8 @@ import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 import gui.main.panel.HomePanel;
-import gui.main.panel.ImpulsWellenlaengePanel;
+import gui.main.panel.ImpulsWellenlaengeBerechnenPanel;
+import gui.main.panel.ImpulsWellenlaengeLadenPanel;
 
 public class GUI extends JFrame {
 
@@ -68,8 +69,11 @@ public class GUI extends JFrame {
 		JPanel homePanel = new HomePanel();
 		contentPane.add(homePanel, HOME_PANEL_NAME);
 		
-		JPanel impulsWellenlaengePanel = new ImpulsWellenlaengePanel(height, width);
-		contentPane.add(impulsWellenlaengePanel, IMPULSWELLENLAENGE_BERECHNEN_PANEL_NAME);
+		JPanel impulsWellenlaengeBerechnenPanel = new ImpulsWellenlaengeBerechnenPanel(height, width);
+		contentPane.add(impulsWellenlaengeBerechnenPanel, IMPULSWELLENLAENGE_BERECHNEN_PANEL_NAME);
+		
+		JPanel impulsWellenlaengeLadenPanel = new ImpulsWellenlaengeLadenPanel();
+		contentPane.add(impulsWellenlaengeLadenPanel, IMPULSWELLENLAENGE_LADEN_PANEL_NAME);
 		
 		show_panel(HOME_PANEL_NAME);
 	}

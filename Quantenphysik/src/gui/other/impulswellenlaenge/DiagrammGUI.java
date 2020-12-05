@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.SystemColor;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -50,6 +51,7 @@ public class DiagrammGUI extends JFrame {
 			JFreeChart chart = new JFreeChart( frame_action.get_plot() );
 			
 			ChartPanel chartPanel = new ChartPanel(chart);
+			chartPanel.setBackground(SystemColor.LIGHT_GRAY);
 			contentPane.add(chartPanel, BorderLayout.CENTER);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -64,34 +66,36 @@ public class DiagrammGUI extends JFrame {
 		gbl_foot.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 		foot.setLayout(gbl_foot);
 		
-		JLabel lblFktgleichung = new JLabel("Funktionsgleichung");
-		GridBagConstraints gbc_lblFktgleichung = new GridBagConstraints();
-		gbc_lblFktgleichung.fill = GridBagConstraints.BOTH;
-		gbc_lblFktgleichung.insets = new Insets(0, 0, 5, 5);
-		gbc_lblFktgleichung.gridx = 0;
-		gbc_lblFktgleichung.gridy = 0;
-		foot.add(lblFktgleichung, gbc_lblFktgleichung);
-		
-		lblFktgleichungValue = new JLabel();
-		GridBagConstraints gbc_lblFktgleichungValue = new GridBagConstraints();
-		gbc_lblFktgleichungValue.insets = new Insets(0, 0, 5, 0);
-		gbc_lblFktgleichungValue.gridx = 1;
-		gbc_lblFktgleichungValue.gridy = 0;
-		foot.add(lblFktgleichungValue, gbc_lblFktgleichungValue);
-		
 		JLabel lblProportionalitaetsfaktor = new JLabel("Proportionalit\u00E4tskonstante");
 		GridBagConstraints gbc_lblProportionalitaetsfaktor = new GridBagConstraints();
 		gbc_lblProportionalitaetsfaktor.fill = GridBagConstraints.BOTH;
 		gbc_lblProportionalitaetsfaktor.insets = new Insets(0, 0, 0, 5);
 		gbc_lblProportionalitaetsfaktor.gridx = 0;
-		gbc_lblProportionalitaetsfaktor.gridy = 1;
+		gbc_lblProportionalitaetsfaktor.gridy = 0;
 		foot.add(lblProportionalitaetsfaktor, gbc_lblProportionalitaetsfaktor);
 		
 		lblProportionalitaetsfaktorValue = new JLabel();
 		GridBagConstraints gbc_lblProportionalitaetsfaktorValue = new GridBagConstraints();
+		gbc_lblProportionalitaetsfaktorValue.fill = GridBagConstraints.BOTH;
 		gbc_lblProportionalitaetsfaktorValue.gridx = 1;
-		gbc_lblProportionalitaetsfaktorValue.gridy = 1;
+		gbc_lblProportionalitaetsfaktorValue.gridy = 0;
 		foot.add(lblProportionalitaetsfaktorValue, gbc_lblProportionalitaetsfaktorValue);
+		
+		JLabel lblFktgleichung = new JLabel("Funktionsgleichung");
+		GridBagConstraints gbc_lblFktgleichung = new GridBagConstraints();
+		gbc_lblFktgleichung.fill = GridBagConstraints.BOTH;
+		gbc_lblFktgleichung.insets = new Insets(0, 0, 5, 5);
+		gbc_lblFktgleichung.gridx = 0;
+		gbc_lblFktgleichung.gridy = 1;
+		foot.add(lblFktgleichung, gbc_lblFktgleichung);
+		
+		lblFktgleichungValue = new JLabel();
+		GridBagConstraints gbc_lblFktgleichungValue = new GridBagConstraints();
+		gbc_lblFktgleichungValue.fill = GridBagConstraints.BOTH;
+		gbc_lblFktgleichungValue.insets = new Insets(0, 0, 5, 0);
+		gbc_lblFktgleichungValue.gridx = 1;
+		gbc_lblFktgleichungValue.gridy = 1;
+		foot.add(lblFktgleichungValue, gbc_lblFktgleichungValue);
 		
 		// Action
 		frame_action.set_funktion();

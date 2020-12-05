@@ -92,6 +92,7 @@ public class ImpulsWellenlaenge {
 		for(int i = 0; i < length; i++) {
 			res[i] = get_lamda(interferenzradius[i]);
 		}
+		
 		return res;
 	}
 	
@@ -134,17 +135,28 @@ public class ImpulsWellenlaenge {
 		return Math.sqrt( impuls / ELEKTRONENMASSE);
 	}
 	
-	private double get_proportionalitaetskonstante(double[] lambda, double[] impuls) {
+	private double[] get_lambda_kehrwert(double [] lambda) {
+		int length 					= lambda.length;
+		double[] lambda_kehrwert	= new double[length];
+		
+		for(int i = 0; i < length; i++) {
+			lambda_kehrwert[i] = 1 / lambda[i];
+		}
+		
+		return lambda_kehrwert;
+	}
+	
+	private double get_proportionalitaetskonstante(double[] lambda_kehrwert, double[] impuls) {
 		int length 	= impuls.length;
 		LinkedList<Double> steigungen = new LinkedList<Double>();
 		
 		for(int i = 0; i < (length - 1); i++) {
 			double impuls_value_first 	= impuls[i] * Math.pow(10, EXPONENT_10ER_POTENZ_IMPULS);
-			double lambda_value_first	= 1 / (lambda[i] * Math.pow(10, EXPONENT_10ER_POTENZ_LAMBDA));
+			double lambda_value_first	= lambda_kehrwert[i] * Math.pow(10, -EXPONENT_10ER_POTENZ_LAMBDA);
 			
 			for(int y = (i + 1); y < length; y++) {
 				double impuls_value_second 	= impuls[y] * Math.pow(10, EXPONENT_10ER_POTENZ_IMPULS);
-				double lambda_value_second	= 1 / (lambda[y] * Math.pow(10, EXPONENT_10ER_POTENZ_LAMBDA));
+				double lambda_value_second	= lambda_kehrwert[y] * Math.pow(10, -EXPONENT_10ER_POTENZ_LAMBDA);
 				
 				double delta_y = impuls_value_first - impuls_value_second;
 				double delta_x = lambda_value_first - lambda_value_second;
@@ -161,9 +173,7 @@ public class ImpulsWellenlaenge {
 	}
 	
 	// resultat -> save
-	public void save_json(String filename) {
-		JSONObject object = this.get_json();
-		
+	public void save_json(String filename, JSONObject object) {
 		try {
 			File f = new File( App.user_folder.toString() + "/" + filename);
 			f.createNewFile();
@@ -180,44 +190,42 @@ public class ImpulsWellenlaenge {
 		}
 	}
 	
-	public JSONObject get_json() {
+	public JSONObject get_json() throws JSONException {
 		// objekt initialisieren
 		JSONObject object_json = new JSONObject();
 		
-		try {
-			// Beschleunigungsspanne
-			object_json.put("beschleunigungsspanne", get_array_json( beschleunigungsspanne ));
-			
-			// Radius
-			object_json.put("radius", get_array_json( interferenzradius ));
-			
-			// Kristallgitter
-			object_json.put("kristallgitter", kristallgitter);
-			
-			// Laenge
-			object_json.put("laenge", laenge);
-			
-			// k
-			object_json.put("k", k);
-			
-			// Lambda
-			double[] lambda = get_lambda();
-			object_json.put("lambda", get_array_json( lambda ));
-			
-			// Impuls
-			double[] impuls = get_impuls();
-			object_json.put("impuls", get_array_json( impuls ));
-			
-			// Proportionalitaetskonstante
-			object_json.put("proportionalitaetskonstante", get_proportionalitaetskonstante(lambda, impuls) );
-			
-			// Geschwindigkeit
-			object_json.put("geschwindigkeit", get_array_json( get_geschwindigkeit(impuls) ));
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		// Beschleunigungsspanne
+		object_json.put("beschleunigungsspanne", get_array_json( beschleunigungsspanne ));
 		
+		// Radius
+		object_json.put("radius", get_array_json( interferenzradius ));
+		
+		// Kristallgitter
+		object_json.put("kristallgitter", kristallgitter);
+		
+		// Laenge
+		object_json.put("laenge", laenge);
+		
+		// k
+		object_json.put("k", k);
+		
+		// Lambda
+		double[] lambda = get_lambda();
+		object_json.put("lambda", get_array_json( lambda ));
+		
+		// Lambda Kehrwert
+		double[] lambda_kehrwert = get_lambda_kehrwert(lambda);
+		object_json.put("1/lambda", get_array_json( lambda_kehrwert ));
+		
+		// Impuls
+		double[] impuls = get_impuls();
+		object_json.put("impuls", get_array_json( impuls ));
+		
+		// Proportionalitaetskonstante
+		object_json.put("proportionalitaetskonstante", get_proportionalitaetskonstante(lambda_kehrwert, impuls) );
+		
+		// Geschwindigkeit
+		object_json.put("geschwindigkeit", get_array_json( get_geschwindigkeit(impuls) ));
 		return object_json;
 	}
 	
