@@ -53,7 +53,7 @@ public class ImpulsWellenlaengeAction {
 		check_element_kontroll_btn();
 		
 		// dynamische daten
-		erzeuge_leere_speicher();
+		set_leeren_speicher();
 		
 		// statische daten
 		laenge 			= EMPTY_VALUE;
@@ -81,12 +81,17 @@ public class ImpulsWellenlaengeAction {
 			elektronenPanel.txtAnzahlDerElemente.setText(String.valueOf(neue_anzahl_der_elemente));
 			
 			JOptionPane.showMessageDialog(null, "Die Anzahl der Elemente darf höchsten "  + MIN_COUNT_ELEMENTS + " betragen", "Fehlerhafte Anzahl an Elementen", JOptionPane.WARNING_MESSAGE);
+		} else if(neue_anzahl_der_elemente == MIN_COUNT_ELEMENTS) {
+			elektronenPanel.cbDiagramm.setSelected(false);
+			elektronenPanel.cbDiagramm.setEnabled(false);
+		} else {
+			elektronenPanel.cbDiagramm.setEnabled(true);
 		}
 		
 		anzahl_der_elemente 	= neue_anzahl_der_elemente;
 		aktuelles_element_index = 0;
 		
-		erzeuge_leere_speicher();
+		set_leeren_speicher();
 		set_aktuelles_element_werte();
 		check_element_kontroll_btn();
 	}
@@ -122,7 +127,7 @@ public class ImpulsWellenlaengeAction {
 		} catch(NullPointerException npe) { }
 	}
 	
-	private void erzeuge_leere_speicher() {
+	private void set_leeren_speicher() {
 		beschleunigungsspanne 	= new LinkedList<Double>();
 		interferenz_radius 		= new LinkedList<Double>();
 		for(int i = 0; i < this.anzahl_der_elemente; i++) {
@@ -146,7 +151,7 @@ public class ImpulsWellenlaengeAction {
 	}
 	
 	public void set_kristallgitter() {
-		kristallgitter = get_textfield_value_double(elektronenPanel.txtKristallgitter, "") * Math.pow(10, -10);
+		kristallgitter = get_textfield_value_double(elektronenPanel.txtKristallgitter, "") * Math.pow(10, -ImpulsWellenlaenge.EXPONENT_10ER_POTENZ_KRISTALLGITTER);
 	}
 
 	public void set_k() {
@@ -161,10 +166,10 @@ public class ImpulsWellenlaengeAction {
 		
 		if( show_diagramm && !show_rechenweg
 			|| !show_diagramm && show_rechenweg ) {
-			elektronenPanel.cbDiagramm.setEnabled(!show_diagramm);
+			elektronenPanel.cbDiagramm.setEnabled(anzahl_der_elemente > MIN_COUNT_ELEMENTS && !show_diagramm);
 			elektronenPanel.cbRechenweg.setEnabled(!show_rechenweg);
 		} else {
-			elektronenPanel.cbDiagramm.setEnabled(true);
+			elektronenPanel.cbDiagramm.setEnabled(anzahl_der_elemente > MIN_COUNT_ELEMENTS);
 			elektronenPanel.cbRechenweg.setEnabled(true);
 		}
 	}
@@ -247,7 +252,9 @@ public class ImpulsWellenlaengeAction {
 	
 	private double get_textfield_value_double(JTextField txtField, String default_value) {
 		try {
-			return Double.parseDouble( txtField.getText() );
+			String value 	= txtField.getText();
+			value 			= value.replace(",", ".");  
+			return Double.parseDouble( value );
 		} catch (Exception e) {
 			txtField.setText(default_value);
 			return EMPTY_VALUE;

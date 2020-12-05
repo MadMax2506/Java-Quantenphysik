@@ -27,7 +27,7 @@ public class GUI extends JFrame {
 	 */
 	public GUI() {
 		int width 	= 550;
-		int height 	= 550;
+		int height 	= 400;
 		
 		set_look_and_feel();
 		

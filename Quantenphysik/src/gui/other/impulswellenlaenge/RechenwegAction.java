@@ -36,15 +36,15 @@ public class RechenwegAction {
 		String beschleunigungsspanne 	= Helper.round(beschleunigungsspanne_prepare[selectindex], 4) + " V";
 		String radius 					= Helper.round(radius_prepare[selectindex], 4) + " cm";
 		String laenge 					= Helper.round(this.laenge, 4) + " cm";
-		String kristallgitter			= Helper.round(this.kristallgitter, 4) + " * (10 ^ -10) m";
+		String kristallgitter			= Helper.round(this.kristallgitter, 4) + " * (10 ^ -" + ImpulsWellenlaenge.EXPONENT_10ER_POTENZ_KRISTALLGITTER + ") m";
 		String k						= Helper.round(this.k, 4) + "";
 		
 		double lambda_value 	= lambda_prepare[selectindex];
-		String lambda 			= (lambda_value == ImpulsWellenlaenge.INFINITY ? "∞" : Helper.round(lambda_value, 4) + " * (10 ^ -11)") + " m";
+		String lambda 			= (lambda_value == ImpulsWellenlaenge.INFINITY ? "∞" : Helper.round(lambda_value, 4) + " * (10 ^ -" + ImpulsWellenlaenge.EXPONENT_10ER_POTENZ_LAMBDA + ")") + " m";
 		String lambda_rechenweg = "(2 * d * sin(0.5 * arcsin(r / l)) / k";
 		
 		double impuls_value 	= impuls_prepare[selectindex];
-		String impuls			= (impuls_value == ImpulsWellenlaenge.INFINITY ? "∞" : Helper.round(impuls_value, 4) + " * (10 ^ -23)" ) + " m";
+		String impuls			= (impuls_value == ImpulsWellenlaenge.INFINITY ? "∞" : Helper.round(impuls_value, 4) + " * (10 ^ -" + ImpulsWellenlaenge.EXPONENT_10ER_POTENZ_IMPULS + ")" ) + " m";
 		String impuls_rechenweg = "sqrt(2 * m * e * U)";
 		
 		double geschwindigkeit_value 		= geschwindigkeit_prepare[selectindex];

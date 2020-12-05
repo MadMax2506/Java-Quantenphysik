@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 
@@ -51,13 +52,14 @@ public class ImpulsWellenlaengePanel extends JPanel {
 		head.add(lbltitle);
 		
 		JPanel main = new JPanel();
-		add(main, BorderLayout.CENTER);
 		GridBagLayout gbl_main = new GridBagLayout();
-		gbl_main.columnWidths = new int[]{ (int)( (width * 3) / 5), (int)( (width * 1) / 5), (int)( (width * 1) / 5),  0};
+		gbl_main.columnWidths = new int[]{ 0, 0, 0, 0};
 		gbl_main.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_main.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
 		gbl_main.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		main.setLayout(gbl_main);
+		JScrollPane impulsWellenlaengeScrollPanel = new JScrollPane(main, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		add(impulsWellenlaengeScrollPanel, BorderLayout.CENTER);
 		
 		JLabel lblAnzahlDerElemente = new JLabel("Anzahl der Elemente");
 		GridBagConstraints gbc_lblAnzahlDerElemente = new GridBagConstraints();

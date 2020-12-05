@@ -9,6 +9,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
@@ -58,8 +59,9 @@ public class RechenwegGUI extends JFrame {
 		setBounds(100, 100, width, height);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
+		JScrollPane impulsWellenlaengeScrollPanel = new JScrollPane(contentPane, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		setContentPane(impulsWellenlaengeScrollPanel);
 		
 		comboBox = new JComboBox<String>();
 		String[] combobox_labels = frame_action.get_combobox_labels();
@@ -192,7 +194,7 @@ public class RechenwegGUI extends JFrame {
 		gbc_lblElektronenmasse.gridy = 6;
 		main.add(lblElektronenmasse, gbc_lblElektronenmasse);
 		
-		JLabel lblElektronenmasseValue = new JLabel( Helper.round(ImpulsWellenlaenge.elektronenmasse * Math.pow(10, 31), 4)  + " 10 ^ -31 kg");
+		JLabel lblElektronenmasseValue = new JLabel( Helper.round(ImpulsWellenlaenge.ELEKTRONENMASSE * Math.pow(10, 31), 4)  + " 10 ^ -31 kg");
 		lblElektronenmasseValue.setHorizontalAlignment(SwingConstants.LEFT);
 		lblKValue.setHorizontalAlignment(SwingConstants.LEFT);
 		GridBagConstraints gbc_lblElektronenmasseValue = new GridBagConstraints();
@@ -212,7 +214,7 @@ public class RechenwegGUI extends JFrame {
 		gbc_lblElementarladung.gridy = 7;
 		main.add(lblElementarladung, gbc_lblElementarladung);
 		
-		JLabel lblElementarladungValue = new JLabel( Helper.round(ImpulsWellenlaenge.elementarladung * Math.pow(10, 19), 4) + " 10 ^ -19 C");
+		JLabel lblElementarladungValue = new JLabel( Helper.round(ImpulsWellenlaenge.ELEMENTARLADUNG * Math.pow(10, 19), 4) + " 10 ^ -19 C");
 		lblElementarladungValue.setHorizontalAlignment(SwingConstants.LEFT);
 		GridBagConstraints gbc_lblElementarladungValue = new GridBagConstraints();
 		gbc_lblElementarladungValue.fill = GridBagConstraints.BOTH;

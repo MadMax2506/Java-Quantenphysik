@@ -14,18 +14,34 @@ import app.App;
 public class ImpulsWellenlaenge {
 	public static final double INFINITY = -2.0101001043898;
 	
-	public static final double elektronenmasse 	= 9.10938356 * Math.pow(10, -31); // in kg
-	public static final double elementarladung 	= 1.602 * Math.pow(10, -19); // in C
+	public static final int EXPONENT_10ER_POTENZ_LAMBDA 			= 11;
+	public static final int EXPONENT_10ER_POTENZ_IMPULS 			= 23;
+	public static final int EXPONENT_10ER_POTENZ_KRISTALLGITTER 	= 10;
+	public static final int EXPONENT_10ER_POTENZ_ELEKTRONENMASSE 	= 31;
+	public static final int EXPONENT_10ER_POTENZ_ELEMENTARLADUNG 	= 19;
+	
+	public static final String EINHEIT_BESCHLEUNIGUNGSSPANNE = "V";
+	public static final String EINHEIT_INTERFERENZRADIUS = "cm";
+	public static final String EINHEIT_KRISTALLGITTER = "m";
+	public static final String EINHEIT_LAENGE = "cm";
+	public static final String EINHEIT_LAMBDA = "m";
+	public static final String EINHEIT_IMPULS = "Ns";
+	public static final String EINHEIT_ELEKTRONENMASSE = "kg";
+	public static final String EINHEIT_ELEMENTARLADUNG = "C";
+	public static final String EINHEIT_ELEKTRONENGESCHWINDIGKEIT = "m / s";
+	
+	public static final double ELEKTRONENMASSE 	= 9.10938356 * Math.pow(10, -EXPONENT_10ER_POTENZ_ELEKTRONENMASSE); // in kg
+	public static final double ELEMENTARLADUNG 	= 1.602 * Math.pow(10, -EXPONENT_10ER_POTENZ_ELEMENTARLADUNG); // in C
 	
 	private double[] beschleunigungsspanne; // in v
 	private double[] interferenzradius; // in cm
-	private double kristallgitter;
+	private double kristallgitter; // in m
 	private double laenge; // in cm
 	private double k;
 	
 	public static void main(String[] args) {
 		try {
-			ImpulsWellenlaenge iw = new ImpulsWellenlaenge(new double[] {}, new double[] {}, 2.13 * Math.pow(10, -10), 13);
+			ImpulsWellenlaenge iw = new ImpulsWellenlaenge(new double[] {2200, 3500}, new double[] {1.58, 1.35}, 2.13 * Math.pow(10, -EXPONENT_10ER_POTENZ_KRISTALLGITTER), 13);
 			iw.get_json();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -65,7 +81,6 @@ public class ImpulsWellenlaenge {
 		
 		for(int i = 0; i < length; i++) {
 			res[i] = get_lamda(interferenzradius[i]);
-			System.out.println(res[i]);
 		}
 		return res;
 	}
@@ -91,7 +106,7 @@ public class ImpulsWellenlaenge {
 	}
 	
 	private double get_impuls(double u) {
-		return Math.sqrt( 2 * elektronenmasse * elementarladung * u);
+		return Math.sqrt( 2 * ELEKTRONENMASSE * ELEMENTARLADUNG * u);
 	}
 	
 	// geschwindigkeit -> in m / s
@@ -106,7 +121,7 @@ public class ImpulsWellenlaenge {
 	}
 	
 	private double get_geschwindigkeit(double impuls) {
-		return Math.sqrt( impuls / elektronenmasse);
+		return Math.sqrt( impuls / ELEKTRONENMASSE);
 	}
 	
 	private double get_proportionalitaetskonstante(double[] lambda, double[] impuls) {
@@ -114,17 +129,15 @@ public class ImpulsWellenlaenge {
 		LinkedList<Double> steigungen = new LinkedList<Double>();
 		
 		for(int i = 0; i < (length - 1); i++) {
+			double impuls_value_first 	= impuls[i] * Math.pow(10, EXPONENT_10ER_POTENZ_IMPULS);
+			double lambda_value_first	= 1 / (lambda[i] * Math.pow(10, EXPONENT_10ER_POTENZ_LAMBDA));
+			
 			for(int y = (i + 1); y < length; y++) {
-				System.out.println("------ x ------");
-				System.out.println(impuls[i]);
-				System.out.println(impuls[y]);
+				double impuls_value_second 	= impuls[y] * Math.pow(10, EXPONENT_10ER_POTENZ_IMPULS);
+				double lambda_value_second	= 1 / (lambda[y] * Math.pow(10, EXPONENT_10ER_POTENZ_LAMBDA));
 				
-				System.out.println("------ y ------");
-				System.out.println(impuls[i]);
-				System.out.println(impuls[y]);
-				
-				double delta_y = impuls[i] - impuls[y];
-				double delta_x = ( 1 / lambda[i]) - ( 1 / lambda[y]);
+				double delta_y = impuls_value_first - impuls_value_second;
+				double delta_x = lambda_value_first - lambda_value_second;
 				
 				steigungen.add( delta_y / delta_x );
 			}
@@ -134,7 +147,6 @@ public class ImpulsWellenlaenge {
 		for(double steigung : steigungen) {
 			proportionalitaetskonstante+= steigung;
 		}
-		System.out.println(proportionalitaetskonstante / steigungen.size());
 		return proportionalitaetskonstante / steigungen.size();
 	}
 	
