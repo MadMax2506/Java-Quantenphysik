@@ -1,4 +1,4 @@
-package gui;
+package gui.main;
 
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -10,8 +10,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import gui.panel.HomePanel;
-import gui.panel.ImpulsWellenlaengePanel;
+import gui.main.panel.HomePanel;
+import gui.main.panel.ImpulsWellenlaengePanel;
 
 public class GUI extends JFrame {
 

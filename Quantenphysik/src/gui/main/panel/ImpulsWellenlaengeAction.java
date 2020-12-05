@@ -1,4 +1,4 @@
-package gui.panel.impulswellenlaenge;
+package gui.main.panel;
 
 import java.awt.EventQueue;
 import java.util.LinkedList;
@@ -8,12 +8,13 @@ import javax.swing.JTextField;
 
 import org.json.JSONObject;
 
-import gui.panel.ImpulsWellenlaengePanel;
-import main.App;
+import app.App;
+import gui.other.impulswellenlaenge.DiagramGUI;
+import gui.other.impulswellenlaenge.RechenwegGUI;
 import rechenoperationen.Helper;
 import rechenoperationen.ImpulsWellenlaenge;
 
-public class PanelAction {
+public class ImpulsWellenlaengeAction {
 	public final double EMPTY_VALUE 	= -1.12321312321;
 	public final int MIN_COUNT_ELEMENTS = 1;
 	
@@ -36,7 +37,7 @@ public class PanelAction {
 	private boolean show_rechenweg;
 	private boolean show_diagramm;
 	
-	public PanelAction(ImpulsWellenlaengePanel elektronenPanel) {
+	public ImpulsWellenlaengeAction(ImpulsWellenlaengePanel elektronenPanel) {
 		this.elektronenPanel = elektronenPanel;
 		
 		set_default();
@@ -243,7 +244,7 @@ public class PanelAction {
 	// start
 	private void start_diagramm(JSONObject data_json)  {
 		try {
-			DiagramFrame iwd = new DiagramFrame(data_json);
+			DiagramGUI iwd = new DiagramGUI(data_json);
 			iwd.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -252,7 +253,7 @@ public class PanelAction {
 	
 	private void start_rechenweg(JSONObject data_json)  {
 		try {
-			Rechenweg iwr = new Rechenweg(data_json);
+			RechenwegGUI iwr = new RechenwegGUI(data_json);
 			iwr.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();

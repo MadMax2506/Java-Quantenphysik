@@ -1,8 +1,8 @@
-package main;
+package app;
 import java.awt.EventQueue;
 import java.io.File;
 
-import gui.GUI;
+import gui.main.GUI;
 
 public class App {
 	

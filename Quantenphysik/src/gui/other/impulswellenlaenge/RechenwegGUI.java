@@ -1,4 +1,4 @@
-package gui.panel.impulswellenlaenge;
+package gui.other.impulswellenlaenge;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -19,7 +19,7 @@ import org.json.JSONObject;
 import rechenoperationen.Helper;
 import rechenoperationen.ImpulsWellenlaenge;
 
-public class Rechenweg extends JFrame {
+public class RechenwegGUI extends JFrame {
 	
 	String[] combobox_labels;
 	
@@ -43,7 +43,7 @@ public class Rechenweg extends JFrame {
 	private static final long serialVersionUID = -8069969261417568142L;
 	private JPanel contentPane;
 	
-	public Rechenweg(JSONObject data_json) {
+	public RechenwegGUI(JSONObject data_json) {
 		int width = 1000;
 		int height = 300;
 		

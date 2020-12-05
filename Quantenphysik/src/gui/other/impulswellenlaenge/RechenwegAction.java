@@ -1,4 +1,4 @@
-package gui.panel.impulswellenlaenge;
+package gui.other.impulswellenlaenge;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -8,7 +8,7 @@ import rechenoperationen.Helper;
 import rechenoperationen.ImpulsWellenlaenge;
 
 public class RechenwegAction {
-	private Rechenweg rechenweg;
+	private RechenwegGUI rechenweg;
 	
 	private double kristallgitter;
 	private double laenge;
@@ -20,7 +20,7 @@ public class RechenwegAction {
 	private double[] impuls_prepare;
 	private double[] geschwindigkeit_prepare;
 	
-	public RechenwegAction(Rechenweg rechenweg) {
+	public RechenwegAction(RechenwegGUI rechenweg) {
 		this.rechenweg = rechenweg;
 	}
 	

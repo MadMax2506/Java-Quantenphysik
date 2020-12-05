@@ -1,4 +1,4 @@
-package gui.panel.impulswellenlaenge;
+package gui.other.impulswellenlaenge;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -21,13 +21,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class DiagramFrame extends JFrame {
+public class DiagramGUI extends JFrame {
 
 	private static final long serialVersionUID = -6746551090428171825L;
 
 	private JPanel contentPane;
 	
-	public DiagramFrame(JSONObject data_json) {
+	public DiagramGUI(JSONObject data_json) {
 		int width = 550;
 		int height = 300;
 		
