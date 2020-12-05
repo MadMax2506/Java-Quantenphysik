@@ -3,12 +3,13 @@ package rechenoperationen;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.util.LinkedList;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import main.App;
+import app.App;
 
 public class ImpulsWellenlaenge {
 	public static final double INFINITY = -2.0101001043898;
@@ -98,6 +99,27 @@ public class ImpulsWellenlaenge {
 		return Math.sqrt( impuls / elektronenmasse);
 	}
 	
+	private double get_proportionalitaetskonstante(double[] lambda, double[] impuls) {
+		int length 	= impuls.length;
+		LinkedList<Double> steigungen = new LinkedList<Double>();
+		
+		for(int i = 0; i < (length - 1); i++) {
+			for(int y = (i + 1); y < length; y++) {
+				double delta_y = ( 1 / impuls[i]) - ( 1 / impuls[y]);
+				double delta_x = ( 1 / lambda[i]) - ( 1 / lambda[y]);
+				
+				steigungen.add( delta_y / delta_x );
+			}
+		}
+		
+		double proportionalitaetskonstante = 0;
+		for(double steigung : steigungen) {
+			proportionalitaetskonstante+= steigung;
+		}
+		
+		return proportionalitaetskonstante / steigungen.size();
+	}
+	
 	// resultat -> save
 	public void save_json(String filename) {
 		JSONObject object = this.get_rechenweg_json();
@@ -125,10 +147,15 @@ public class ImpulsWellenlaenge {
 		
 		try {
 			// Lambda
-			object_json.put("lambda", get_array_json( get_lambda() ));
+			double[] lambda = get_lambda();
+			object_json.put("lambda", get_array_json( lambda ));
 			
 			// Impuls
-			object_json.put("impuls", get_array_json( get_impuls() ));
+			double[] impuls = get_impuls();
+			object_json.put("impuls", get_array_json( impuls ));
+			
+			// Proportionalitaetskonstante
+			object_json.put("proportionalitaetskonstante", get_proportionalitaetskonstante(lambda, impuls) );
 			
 		} catch (Exception e) {
 			e.printStackTrace();
