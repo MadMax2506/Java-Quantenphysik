@@ -34,6 +34,9 @@ public class ImpulsWellenlaengePanel extends JPanel {
 	public JCheckBox cbSave;
 	public JCheckBox cbRechenweg;
 	public JCheckBox cbDiagramm;
+	
+	public JButton btn_zurück;
+	public JButton btn_weiter;
 
 	/**
 	 * Create the panel.
@@ -117,13 +120,13 @@ public class ImpulsWellenlaengePanel extends JPanel {
 		lblCurrentStep.setForeground(Color.WHITE);
 		dynamic_controll.add(lblCurrentStep);
 		
-		JButton btn_zurück = new JButton("<<");
+		btn_zurück = new JButton("<<");
 		btn_zurück.setForeground(Color.WHITE);
 		btn_zurück.setBackground(Color.BLACK);
 		btn_zurück.setFont(new Font("Dialog", Font.BOLD, 10));
 		dynamic_controll.add(btn_zurück);
 		
-		JButton btn_weiter = new JButton(">>");
+		btn_weiter = new JButton(">>");
 		btn_weiter.setFont(new Font("Dialog", Font.BOLD, 10));
 		btn_weiter.setForeground(Color.WHITE);
 		btn_weiter.setBackground(Color.BLACK);

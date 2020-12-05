@@ -10,6 +10,8 @@ import rechenoperationen.ImpulsWellenlaenge;
 public class RechenwegAction {
 	private RechenwegGUI rechenweg;
 	
+	private String[] combobox_labels;
+	
 	private double kristallgitter;
 	private double laenge;
 	private int k;
@@ -24,7 +26,11 @@ public class RechenwegAction {
 		this.rechenweg = rechenweg;
 	}
 	
-	public void change_rechenweg_values() {
+	public String[] get_combobox_labels() {
+		return combobox_labels;
+	}
+	
+	public void set_rechenweg_werte() {
 		int selectindex = rechenweg.comboBox.getSelectedIndex();
 		
 		String beschleunigungsspanne 	= Helper.round(beschleunigungsspanne_prepare[selectindex], 4) + " V";
@@ -77,7 +83,7 @@ public class RechenwegAction {
 		
 		//  daten initialisieren
 		int length 						= beschleunigungsspanne.length();
-		String[] combobox_labels		= new String[length];
+		combobox_labels					= new String[length];
 		beschleunigungsspanne_prepare 	= new double[length];
 		radius_prepare 					= new double[length];
 		lambda_prepare 					= new double[length];

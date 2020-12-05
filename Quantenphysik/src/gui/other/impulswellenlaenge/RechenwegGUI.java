@@ -20,9 +20,6 @@ import rechenoperationen.Helper;
 import rechenoperationen.ImpulsWellenlaenge;
 
 public class RechenwegGUI extends JFrame {
-	
-	String[] combobox_labels;
-	
 	public JComboBox<String> comboBox;
 	
 	public JLabel lblBeschleunigungsspanneValue;
@@ -47,10 +44,10 @@ public class RechenwegGUI extends JFrame {
 		int width = 1000;
 		int height = 300;
 		
-		RechenwegAction re = new RechenwegAction(this);
+		RechenwegAction frame_action = new RechenwegAction(this);
 		
 		try {
-			combobox_labels = re.prepare_data(data_json);
+			frame_action.prepare_data(data_json);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -66,6 +63,7 @@ public class RechenwegGUI extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
 		comboBox = new JComboBox<String>();
+		String[] combobox_labels = frame_action.get_combobox_labels();
 		for(String lblBeschleunigungsspanne : combobox_labels) {
 			comboBox.addItem(lblBeschleunigungsspanne);
 		}
@@ -352,8 +350,9 @@ public class RechenwegGUI extends JFrame {
 		gbc_lblGeschwindigkeitRechenweg.gridy = 11;
 		main.add(lblGeschwindigkeitRechenweg, gbc_lblGeschwindigkeitRechenweg);
 		
-		re.change_rechenweg_values();
-		comboBox.addActionListener((e) -> re.change_rechenweg_values());
+		// Actions
+		frame_action.set_rechenweg_werte();
+		comboBox.addActionListener((e) -> frame_action.set_rechenweg_werte());
 	}
 	
 }

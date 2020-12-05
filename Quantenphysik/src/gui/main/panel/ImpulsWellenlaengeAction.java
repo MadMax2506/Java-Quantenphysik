@@ -9,7 +9,7 @@ import javax.swing.JTextField;
 import org.json.JSONObject;
 
 import app.App;
-import gui.other.impulswellenlaenge.DiagramGUI;
+import gui.other.impulswellenlaenge.DiagrammGUI;
 import gui.other.impulswellenlaenge.RechenwegGUI;
 import rechenoperationen.Helper;
 import rechenoperationen.ImpulsWellenlaenge;
@@ -50,6 +50,7 @@ public class ImpulsWellenlaengeAction {
 		aktuelles_element_index = 0;
 		elektronenPanel.txtAnzahlDerElemente.setText(String.valueOf(anzahl_der_elemente));
 		set_aktuelles_element_werte();
+		check_element_kontroll_btn();
 		
 		// dynamische daten
 		erzeuge_leere_speicher();
@@ -87,6 +88,7 @@ public class ImpulsWellenlaengeAction {
 		
 		erzeuge_leere_speicher();
 		set_aktuelles_element_werte();
+		check_element_kontroll_btn();
 	}
 	
 	public void set_aktuelles_element_index(boolean naechstes) {
@@ -108,7 +110,7 @@ public class ImpulsWellenlaengeAction {
 	}
 	
 	private void set_aktuelles_element_werte() {
-		elektronenPanel.lblCurrentStep.setText( "Element " + (aktuelles_element_index + 1) + " / " + anzahl_der_elemente);
+		elektronenPanel.lblCurrentStep.setText( anzahl_der_elemente == 1 ? "Element" : "Element " + (aktuelles_element_index + 1) + " / " + anzahl_der_elemente);
 		
 		try {
 			// values setzten
@@ -169,7 +171,7 @@ public class ImpulsWellenlaengeAction {
 	
 	// other
 	public void berechnen() {
-		if( !guelltige_daten() ) {
+		if( !check_ob_guelltige_daten() ) {
 			JOptionPane.showMessageDialog(null, "Bitte korrigieren Sie Ihre Eingaben.", "Fehlerhafte Eingaben", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
@@ -203,7 +205,7 @@ public class ImpulsWellenlaengeAction {
 	}
 
 	// check
-	private boolean guelltige_daten() {
+	private boolean check_ob_guelltige_daten() {
 		// dynamische Daten
 		for(int i = 0; i < this.anzahl_der_elemente; i++) {
 			if(beschleunigungsspanne.get(i) == EMPTY_VALUE
@@ -220,6 +222,16 @@ public class ImpulsWellenlaengeAction {
 		}
 
 		return true;
+	}
+	
+	private void check_element_kontroll_btn() {
+		if(anzahl_der_elemente == 1) {
+			elektronenPanel.btn_weiter.setVisible(false);
+			elektronenPanel.btn_zurück.setVisible(false);
+		} else {
+			elektronenPanel.btn_weiter.setVisible(true);
+			elektronenPanel.btn_zurück.setVisible(true);
+		}
 	}
 	
 	// getter (private)
@@ -244,7 +256,7 @@ public class ImpulsWellenlaengeAction {
 	// start
 	private void start_diagramm(JSONObject data_json)  {
 		try {
-			DiagramGUI iwd = new DiagramGUI(data_json);
+			DiagrammGUI iwd = new DiagrammGUI(data_json);
 			iwd.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
