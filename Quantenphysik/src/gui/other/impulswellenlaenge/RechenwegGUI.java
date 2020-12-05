@@ -1,7 +1,6 @@
 package gui.other.impulswellenlaenge;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -12,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 import org.json.JSONObject;
@@ -44,6 +44,8 @@ public class RechenwegGUI extends JFrame {
 		int width = 1000;
 		int height = 300;
 		
+		set_look_and_feel();
+		
 		RechenwegAction frame_action = new RechenwegAction(this);
 		
 		try {
@@ -52,12 +54,9 @@ public class RechenwegGUI extends JFrame {
 			e.printStackTrace();
 		}
 		
-		setBackground(Color.BLACK);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, width, height);
 		contentPane = new JPanel();
-		contentPane.setForeground(Color.WHITE);
-		contentPane.setBackground(Color.BLACK);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -72,8 +71,6 @@ public class RechenwegGUI extends JFrame {
 		}
 		
 		JPanel main = new JPanel();
-		main.setForeground(Color.WHITE);
-		main.setBackground(Color.BLACK);
 		contentPane.add(main, BorderLayout.CENTER);
 		GridBagLayout gbl_main = new GridBagLayout();
 		gbl_main.columnWidths = new int[]{(width * 2) / 5, (width * 1) / 5, (width * 2) / 5, 0};
@@ -84,7 +81,6 @@ public class RechenwegGUI extends JFrame {
 		
 		JLabel lblBeschleunigungsspanne = new JLabel("Beschleunigungsspanne (u)");
 		lblBeschleunigungsspanne.setHorizontalAlignment(SwingConstants.LEFT);
-		lblBeschleunigungsspanne.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblBeschleunigungsspanne = new GridBagConstraints();
 		gbc_lblBeschleunigungsspanne.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblBeschleunigungsspanne.insets = new Insets(0, 10, 5, 10);
@@ -92,9 +88,8 @@ public class RechenwegGUI extends JFrame {
 		gbc_lblBeschleunigungsspanne.gridy = 0;
 		main.add(lblBeschleunigungsspanne, gbc_lblBeschleunigungsspanne);
 		
-		lblBeschleunigungsspanneValue = new JLabel("");
+		lblBeschleunigungsspanneValue = new JLabel();
 		lblBeschleunigungsspanneValue.setHorizontalAlignment(SwingConstants.LEFT);
-		lblBeschleunigungsspanneValue.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblBeschleunigungsspanneValue = new GridBagConstraints();
 		gbc_lblBeschleunigungsspanneValue.gridwidth = 2;
 		gbc_lblBeschleunigungsspanneValue.fill = GridBagConstraints.BOTH;
@@ -105,7 +100,6 @@ public class RechenwegGUI extends JFrame {
 		
 		JLabel lblInterferenzradius = new JLabel("Interferenzradius (r)");
 		lblInterferenzradius.setHorizontalAlignment(SwingConstants.LEFT);
-		lblInterferenzradius.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblInterferenzradius = new GridBagConstraints();
 		gbc_lblInterferenzradius.fill = GridBagConstraints.BOTH;
 		gbc_lblInterferenzradius.insets = new Insets(0, 10, 5, 10);
@@ -113,9 +107,8 @@ public class RechenwegGUI extends JFrame {
 		gbc_lblInterferenzradius.gridy = 1;
 		main.add(lblInterferenzradius, gbc_lblInterferenzradius);
 		
-		lblInterferenzradiusValue = new JLabel("");
+		lblInterferenzradiusValue = new JLabel();
 		lblInterferenzradiusValue.setHorizontalAlignment(SwingConstants.LEFT);
-		lblInterferenzradiusValue.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblInterferenzradiusValue = new GridBagConstraints();
 		gbc_lblInterferenzradiusValue.gridwidth = 2;
 		gbc_lblInterferenzradiusValue.fill = GridBagConstraints.BOTH;
@@ -126,7 +119,6 @@ public class RechenwegGUI extends JFrame {
 		
 		JLabel lblLaenge = new JLabel("Länge (l)");
 		lblLaenge.setHorizontalAlignment(SwingConstants.LEFT);
-		lblLaenge.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblLaenge = new GridBagConstraints();
 		gbc_lblLaenge.fill = GridBagConstraints.BOTH;
 		gbc_lblLaenge.insets = new Insets(0, 10, 5, 10);
@@ -134,9 +126,8 @@ public class RechenwegGUI extends JFrame {
 		gbc_lblLaenge.gridy = 2;
 		main.add(lblLaenge, gbc_lblLaenge);
 		
-		lblLaengeValue = new JLabel("");
+		lblLaengeValue = new JLabel();
 		lblLaengeValue.setHorizontalAlignment(SwingConstants.LEFT);
-		lblLaengeValue.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblLaengeValue = new GridBagConstraints();
 		gbc_lblLaengeValue.fill = GridBagConstraints.BOTH;
 		gbc_lblLaengeValue.gridwidth = 2;
@@ -147,7 +138,6 @@ public class RechenwegGUI extends JFrame {
 		
 		JLabel lblKristallgitter = new JLabel("Kristallgitter (d)");
 		lblKristallgitter.setHorizontalAlignment(SwingConstants.LEFT);
-		lblKristallgitter.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblKristallgitter = new GridBagConstraints();
 		gbc_lblKristallgitter.fill = GridBagConstraints.BOTH;
 		gbc_lblKristallgitter.insets = new Insets(0, 10, 5, 10);
@@ -155,10 +145,8 @@ public class RechenwegGUI extends JFrame {
 		gbc_lblKristallgitter.gridy = 3;
 		main.add(lblKristallgitter, gbc_lblKristallgitter);
 		
-		lblKristallgitterValue = new JLabel("");
-		lblKristallgitterValue.setForeground(Color.WHITE);
+		lblKristallgitterValue = new JLabel();
 		lblKristallgitterValue.setHorizontalAlignment(SwingConstants.LEFT);
-		lblLaengeValue.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblKristallgitterValue = new GridBagConstraints();
 		gbc_lblKristallgitterValue.fill = GridBagConstraints.BOTH;
 		gbc_lblKristallgitterValue.gridwidth = 2;
@@ -169,7 +157,6 @@ public class RechenwegGUI extends JFrame {
 		
 		JLabel lblK = new JLabel("k");
 		lblK.setHorizontalAlignment(SwingConstants.LEFT);
-		lblK.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblK = new GridBagConstraints();
 		gbc_lblK.fill = GridBagConstraints.BOTH;
 		gbc_lblK.insets = new Insets(0, 10, 5, 10);
@@ -177,9 +164,8 @@ public class RechenwegGUI extends JFrame {
 		gbc_lblK.gridy = 4;
 		main.add(lblK, gbc_lblK);
 		
-		lblKValue = new JLabel("");
+		lblKValue = new JLabel();
 		lblKValue.setHorizontalAlignment(SwingConstants.LEFT);
-		lblKValue.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblKValue = new GridBagConstraints();
 		gbc_lblKValue.fill = GridBagConstraints.BOTH;
 		gbc_lblKValue.gridwidth = 2;
@@ -189,8 +175,6 @@ public class RechenwegGUI extends JFrame {
 		main.add(lblKValue, gbc_lblKValue);
 		
 		JSeparator separator_one = new JSeparator();
-		separator_one.setBackground(Color.WHITE);
-		separator_one.setForeground(Color.WHITE);
 		GridBagConstraints gbc_separator_one = new GridBagConstraints();
 		gbc_separator_one.gridwidth = 3;
 		gbc_separator_one.fill = GridBagConstraints.BOTH;
@@ -201,7 +185,6 @@ public class RechenwegGUI extends JFrame {
 		
 		JLabel lblElektronenmasse = new JLabel("Elektronenmasse (m)");
 		lblElektronenmasse.setHorizontalAlignment(SwingConstants.LEFT);
-		lblElektronenmasse.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblElektronenmasse = new GridBagConstraints();
 		gbc_lblElektronenmasse.fill = GridBagConstraints.BOTH;
 		gbc_lblElektronenmasse.insets = new Insets(0, 10, 5, 10);
@@ -211,9 +194,7 @@ public class RechenwegGUI extends JFrame {
 		
 		JLabel lblElektronenmasseValue = new JLabel( Helper.round(ImpulsWellenlaenge.elektronenmasse * Math.pow(10, 31), 4)  + " 10 ^ -31 kg");
 		lblElektronenmasseValue.setHorizontalAlignment(SwingConstants.LEFT);
-		lblElektronenmasseValue.setForeground(Color.WHITE);
 		lblKValue.setHorizontalAlignment(SwingConstants.LEFT);
-		lblKValue.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblElektronenmasseValue = new GridBagConstraints();
 		gbc_lblElektronenmasseValue.fill = GridBagConstraints.BOTH;
 		gbc_lblElektronenmasseValue.gridwidth = 2;
@@ -224,7 +205,6 @@ public class RechenwegGUI extends JFrame {
 		
 		JLabel lblElementarladung = new JLabel("Elementarladung (e)");
 		lblElementarladung.setHorizontalAlignment(SwingConstants.LEFT);
-		lblElementarladung.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblElementarladung = new GridBagConstraints();
 		gbc_lblElementarladung.fill = GridBagConstraints.BOTH;
 		gbc_lblElementarladung.insets = new Insets(0, 10, 5, 10);
@@ -234,7 +214,6 @@ public class RechenwegGUI extends JFrame {
 		
 		JLabel lblElementarladungValue = new JLabel( Helper.round(ImpulsWellenlaenge.elementarladung * Math.pow(10, 19), 4) + " 10 ^ -19 C");
 		lblElementarladungValue.setHorizontalAlignment(SwingConstants.LEFT);
-		lblElementarladungValue.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblElementarladungValue = new GridBagConstraints();
 		gbc_lblElementarladungValue.fill = GridBagConstraints.BOTH;
 		gbc_lblElementarladungValue.gridwidth = 2;
@@ -244,8 +223,6 @@ public class RechenwegGUI extends JFrame {
 		main.add(lblElementarladungValue, gbc_lblElementarladungValue);
 		
 		JSeparator separator_two = new JSeparator();
-		separator_two.setBackground(Color.WHITE);
-		separator_two.setForeground(Color.WHITE);
 		GridBagConstraints gbc_separator_two = new GridBagConstraints();
 		gbc_separator_two.gridwidth = 3;
 		gbc_separator_two.fill = GridBagConstraints.BOTH;
@@ -256,7 +233,6 @@ public class RechenwegGUI extends JFrame {
 		
 		JLabel lblLambda = new JLabel("Lamdba (λ)");
 		lblLambda.setHorizontalAlignment(SwingConstants.LEFT);
-		lblLambda.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblLambda = new GridBagConstraints();
 		gbc_lblLambda.fill = GridBagConstraints.BOTH;
 		gbc_lblLambda.insets = new Insets(0, 10, 5, 10);
@@ -266,7 +242,6 @@ public class RechenwegGUI extends JFrame {
 		
 		lblLambdaValue = new JLabel();
 		lblLambdaValue.setHorizontalAlignment(SwingConstants.LEFT);
-		lblLambdaValue.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblLambdaValue = new GridBagConstraints();
 		gbc_lblLambdaValue.fill = GridBagConstraints.BOTH;
 		gbc_lblLambdaValue.gridwidth = 1;
@@ -275,9 +250,8 @@ public class RechenwegGUI extends JFrame {
 		gbc_lblLambdaValue.gridy = 9;
 		main.add(lblLambdaValue, gbc_lblLambdaValue);
 		
-		lblLambdaRechenweg = new JLabel("");
+		lblLambdaRechenweg = new JLabel();
 		lblLambdaRechenweg.setHorizontalAlignment(SwingConstants.LEFT);
-		lblLambdaRechenweg.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblLambdaRechenweg = new GridBagConstraints();
 		gbc_lblLambdaRechenweg.fill = GridBagConstraints.BOTH;
 		gbc_lblLambdaRechenweg.gridwidth = 1;
@@ -288,7 +262,6 @@ public class RechenwegGUI extends JFrame {
 		
 		JLabel lblImpuls = new JLabel("Impuls (P)");
 		lblImpuls.setHorizontalAlignment(SwingConstants.LEFT);
-		lblImpuls.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblImpuls = new GridBagConstraints();
 		gbc_lblImpuls.fill = GridBagConstraints.BOTH;
 		gbc_lblImpuls.insets = new Insets(0, 10, 5, 10);
@@ -296,9 +269,8 @@ public class RechenwegGUI extends JFrame {
 		gbc_lblImpuls.gridy = 10;
 		main.add(lblImpuls, gbc_lblImpuls);
 		
-		lblImpulsValue = new JLabel("");
+		lblImpulsValue = new JLabel();
 		lblImpulsValue.setHorizontalAlignment(SwingConstants.LEFT);
-		lblImpulsValue.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblImpulsValue = new GridBagConstraints();
 		gbc_lblImpulsValue.fill = GridBagConstraints.BOTH;
 		gbc_lblImpulsValue.gridwidth = 1;
@@ -307,9 +279,8 @@ public class RechenwegGUI extends JFrame {
 		gbc_lblImpulsValue.gridy = 10;
 		main.add(lblImpulsValue, gbc_lblImpulsValue);
 		
-		lblImpulsRechenweg = new JLabel("");
+		lblImpulsRechenweg = new JLabel();
 		lblImpulsRechenweg.setHorizontalAlignment(SwingConstants.LEFT);
-		lblImpulsRechenweg.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblImpulsRechenweg = new GridBagConstraints();
 		gbc_lblImpulsRechenweg.fill = GridBagConstraints.BOTH;
 		gbc_lblImpulsRechenweg.gridwidth = 1;
@@ -320,7 +291,6 @@ public class RechenwegGUI extends JFrame {
 		
 		JLabel lblGeschwindigkeit = new JLabel("Geschwindigkeit (v)");
 		lblGeschwindigkeit.setHorizontalAlignment(SwingConstants.LEFT);
-		lblGeschwindigkeit.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblGeschwindigkeit = new GridBagConstraints();
 		gbc_lblGeschwindigkeit.fill = GridBagConstraints.BOTH;
 		gbc_lblGeschwindigkeit.insets = new Insets(0, 10, 5, 10);
@@ -328,9 +298,8 @@ public class RechenwegGUI extends JFrame {
 		gbc_lblGeschwindigkeit.gridy = 11;
 		main.add(lblGeschwindigkeit, gbc_lblGeschwindigkeit);
 		
-		lblGeschwindigkeitValue = new JLabel("");
+		lblGeschwindigkeitValue = new JLabel();
 		lblGeschwindigkeitValue.setHorizontalAlignment(SwingConstants.LEFT);
-		lblGeschwindigkeitValue.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblGeschwindigkeitValue = new GridBagConstraints();
 		gbc_lblGeschwindigkeitValue.fill = GridBagConstraints.BOTH;
 		gbc_lblGeschwindigkeitValue.gridwidth = 1;
@@ -339,9 +308,8 @@ public class RechenwegGUI extends JFrame {
 		gbc_lblGeschwindigkeitValue.gridy = 11;
 		main.add(lblGeschwindigkeitValue, gbc_lblGeschwindigkeitValue);
 		
-		lblGeschwindigkeitRechenweg = new JLabel("");
+		lblGeschwindigkeitRechenweg = new JLabel();
 		lblGeschwindigkeitRechenweg.setHorizontalAlignment(SwingConstants.LEFT);
-		lblGeschwindigkeitRechenweg.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblGeschwindigkeitRechenweg = new GridBagConstraints();
 		gbc_lblGeschwindigkeitRechenweg.fill = GridBagConstraints.BOTH;
 		gbc_lblGeschwindigkeitRechenweg.gridwidth = 1;
@@ -353,6 +321,24 @@ public class RechenwegGUI extends JFrame {
 		// Actions
 		frame_action.set_rechenweg_werte();
 		comboBox.addActionListener((e) -> frame_action.set_rechenweg_werte());
+	}
+	
+	private void set_look_and_feel() {		
+		try {
+			UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
+		} catch (Exception e) {
+			try {
+				UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+			} catch (Exception e2) {
+				try {
+					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+				} catch (Exception e3) {
+					try {
+						UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+					} catch (Exception e4) {}
+				}
+			}
+		}
 	}
 	
 }

@@ -23,6 +23,16 @@ public class ImpulsWellenlaenge {
 	private double laenge; // in cm
 	private double k;
 	
+	public static void main(String[] args) {
+		try {
+			ImpulsWellenlaenge iw = new ImpulsWellenlaenge(new double[] {}, new double[] {}, 2.13 * Math.pow(10, -10), 13);
+			iw.get_json();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	// Konstruktor
 	public ImpulsWellenlaenge(double[] beschleunigungsspanne, double[] interferenzradius, double kristallgitter, double laenge) throws Exception {
 		this(beschleunigungsspanne, interferenzradius, kristallgitter, laenge, 1);
@@ -105,7 +115,15 @@ public class ImpulsWellenlaenge {
 		
 		for(int i = 0; i < (length - 1); i++) {
 			for(int y = (i + 1); y < length; y++) {
-				double delta_y = ( 1 / impuls[i]) - ( 1 / impuls[y]);
+				System.out.println("------ x ------");
+				System.out.println(impuls[i]);
+				System.out.println(impuls[y]);
+				
+				System.out.println("------ y ------");
+				System.out.println(impuls[i]);
+				System.out.println(impuls[y]);
+				
+				double delta_y = impuls[i] - impuls[y];
 				double delta_x = ( 1 / lambda[i]) - ( 1 / lambda[y]);
 				
 				steigungen.add( delta_y / delta_x );
@@ -116,13 +134,13 @@ public class ImpulsWellenlaenge {
 		for(double steigung : steigungen) {
 			proportionalitaetskonstante+= steigung;
 		}
-		
+		System.out.println(proportionalitaetskonstante / steigungen.size());
 		return proportionalitaetskonstante / steigungen.size();
 	}
 	
 	// resultat -> save
 	public void save_json(String filename) {
-		JSONObject object = this.get_rechenweg_json();
+		JSONObject object = this.get_json();
 		
 		try {
 			File f = new File( App.user_folder.toString() + "/" + filename);
@@ -140,31 +158,7 @@ public class ImpulsWellenlaenge {
 		}
 	}
 	
-	// resultat -> json format
-	public JSONObject get_diagramm_json() {
-		// objekt initialisieren
-		JSONObject object_json = new JSONObject();
-		
-		try {
-			// Lambda
-			double[] lambda = get_lambda();
-			object_json.put("lambda", get_array_json( lambda ));
-			
-			// Impuls
-			double[] impuls = get_impuls();
-			object_json.put("impuls", get_array_json( impuls ));
-			
-			// Proportionalitaetskonstante
-			object_json.put("proportionalitaetskonstante", get_proportionalitaetskonstante(lambda, impuls) );
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return object_json;
-	}
-	
-	public JSONObject get_rechenweg_json() {
+	public JSONObject get_json() {
 		// objekt initialisieren
 		JSONObject object_json = new JSONObject();
 		
@@ -185,11 +179,15 @@ public class ImpulsWellenlaenge {
 			object_json.put("k", k);
 			
 			// Lambda
-			object_json.put("lambda", get_array_json( get_lambda() ));
+			double[] lambda = get_lambda();
+			object_json.put("lambda", get_array_json( lambda ));
 			
 			// Impuls
 			double[] impuls = get_impuls();
 			object_json.put("impuls", get_array_json( impuls ));
+			
+			// Proportionalitaetskonstante
+			object_json.put("proportionalitaetskonstante", get_proportionalitaetskonstante(lambda, impuls) );
 			
 			// Geschwindigkeit
 			object_json.put("geschwindigkeit", get_array_json( get_geschwindigkeit(impuls) ));

@@ -176,9 +176,9 @@ public class ImpulsWellenlaengeAction {
 			return;
 		}
 		
-		ImpulsWellenlaenge iw;
+		ImpulsWellenlaenge impuls_wellenlaenge;
 		try {
-			iw = new ImpulsWellenlaenge(Helper.to_array(beschleunigungsspanne), Helper.to_array(interferenz_radius), kristallgitter, laenge, k);
+			impuls_wellenlaenge = new ImpulsWellenlaenge(Helper.to_array(beschleunigungsspanne), Helper.to_array(interferenz_radius), kristallgitter, laenge, k);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Leider ist ein Systemfehler aufgetreten.\nVersuchen Sie es zu einem späteren Zeitpunkt erneut...", "Systemfehler", JOptionPane.ERROR_MESSAGE);
 			return;
@@ -189,17 +189,18 @@ public class ImpulsWellenlaengeAction {
 			String name = JOptionPane.showInputDialog(null, "Bitte geben Sie eine den Namen der Datei ein (ohne \".json\").\nDie Datei wird in \"" + App.user_folder + "\" gespeichert.\n", "Dateiname", JOptionPane.PLAIN_MESSAGE);
 			
 			if(name != null) {
-				iw.save_json( name + ".json" );
+				impuls_wellenlaenge.save_json( name + ".json" );
 			}
 		}
 		
+		JSONObject data_json = impuls_wellenlaenge.get_json();
 		if(show_rechenweg) {
-			JSONObject rechenweg_json = iw.get_rechenweg_json();
+			JSONObject rechenweg_json = data_json;
 			EventQueue.invokeLater(() -> start_rechenweg(rechenweg_json));
 		}
 		
 		if(show_diagramm) {
-			JSONObject diagramm_json = iw.get_diagramm_json();
+			JSONObject diagramm_json = data_json;
 			EventQueue.invokeLater(() -> start_diagramm(diagramm_json));
 		}
 	}

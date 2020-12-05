@@ -1,7 +1,6 @@
 package gui.main.panel;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Font;
 import java.io.File;
 
@@ -23,10 +22,8 @@ public class HomePanel extends JPanel {
 		JPanel main = new JPanel();
 		add(main, BorderLayout.CENTER);
 		main.setLayout(new BorderLayout(0, 0));
-		main.setBackground( Color.BLACK );
 		
 		JLabel lblTitle = new JLabel("Herzlich Wilkommen");
-		lblTitle.setForeground(Color.WHITE);
 		main.add(lblTitle, BorderLayout.NORTH);
 		lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);

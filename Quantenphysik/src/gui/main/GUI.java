@@ -1,7 +1,6 @@
 package gui.main;
 
 import java.awt.CardLayout;
-import java.awt.Color;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -27,7 +26,6 @@ public class GUI extends JFrame {
 	 * Create the frame.
 	 */
 	public GUI() {
-		setBackground(Color.BLACK);
 		int width 	= 550;
 		int height 	= 550;
 		
@@ -66,7 +64,6 @@ public class GUI extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new CardLayout(0, 0));
-		contentPane.setBackground( Color.BLACK );
 		
 		JPanel homePanel = new HomePanel();
 		contentPane.add(homePanel, HOME_PANEL_NAME);

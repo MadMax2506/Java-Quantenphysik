@@ -1,7 +1,6 @@
 package gui.other.impulswellenlaenge;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -9,6 +8,7 @@ import java.awt.Insets;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 import org.jfree.chart.ChartPanel;
@@ -28,6 +28,8 @@ public class DiagrammGUI extends JFrame {
 		int width = 550;
 		int height = 300;
 		
+		set_look_and_feel();
+		
 		DiagrammAction frame_action = new DiagrammAction(this);
 		
 		try {
@@ -36,7 +38,6 @@ public class DiagrammGUI extends JFrame {
 			e.printStackTrace();
 		}
 		
-		setBackground(Color.BLACK);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, width, height);
 
@@ -44,7 +45,6 @@ public class DiagrammGUI extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout());
-		contentPane.setBackground( Color.BLACK );
 		
 		try {
 			JFreeChart chart = new JFreeChart( frame_action.get_plot() );
@@ -56,8 +56,6 @@ public class DiagrammGUI extends JFrame {
 		}
 		
 		JPanel foot = new JPanel();
-		foot.setForeground(Color.WHITE);
-		foot.setBackground(Color.BLACK);
 		contentPane.add(foot, BorderLayout.SOUTH);
 		GridBagLayout gbl_foot = new GridBagLayout();
 		gbl_foot.columnWidths = new int[]{(width * 2) / 5, (width * 3) / 5, 0};
@@ -67,7 +65,6 @@ public class DiagrammGUI extends JFrame {
 		foot.setLayout(gbl_foot);
 		
 		JLabel lblFktgleichung = new JLabel("Funktionsgleichung");
-		lblFktgleichung.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblFktgleichung = new GridBagConstraints();
 		gbc_lblFktgleichung.fill = GridBagConstraints.BOTH;
 		gbc_lblFktgleichung.insets = new Insets(0, 0, 5, 5);
@@ -76,7 +73,6 @@ public class DiagrammGUI extends JFrame {
 		foot.add(lblFktgleichung, gbc_lblFktgleichung);
 		
 		lblFktgleichungValue = new JLabel();
-		lblFktgleichungValue.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblFktgleichungValue = new GridBagConstraints();
 		gbc_lblFktgleichungValue.insets = new Insets(0, 0, 5, 0);
 		gbc_lblFktgleichungValue.gridx = 1;
@@ -84,7 +80,6 @@ public class DiagrammGUI extends JFrame {
 		foot.add(lblFktgleichungValue, gbc_lblFktgleichungValue);
 		
 		JLabel lblProportionalitaetsfaktor = new JLabel("Proportionalit\u00E4tskonstante");
-		lblProportionalitaetsfaktor.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblProportionalitaetsfaktor = new GridBagConstraints();
 		gbc_lblProportionalitaetsfaktor.fill = GridBagConstraints.BOTH;
 		gbc_lblProportionalitaetsfaktor.insets = new Insets(0, 0, 0, 5);
@@ -93,7 +88,6 @@ public class DiagrammGUI extends JFrame {
 		foot.add(lblProportionalitaetsfaktor, gbc_lblProportionalitaetsfaktor);
 		
 		lblProportionalitaetsfaktorValue = new JLabel();
-		lblProportionalitaetsfaktorValue.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblProportionalitaetsfaktorValue = new GridBagConstraints();
 		gbc_lblProportionalitaetsfaktorValue.gridx = 1;
 		gbc_lblProportionalitaetsfaktorValue.gridy = 1;
@@ -101,5 +95,23 @@ public class DiagrammGUI extends JFrame {
 		
 		// Action
 		frame_action.set_funktion();
+	}
+	
+	private void set_look_and_feel() {		
+		try {
+			UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
+		} catch (Exception e) {
+			try {
+				UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+			} catch (Exception e2) {
+				try {
+					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+				} catch (Exception e3) {
+					try {
+						UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+					} catch (Exception e4) {}
+				}
+			}
+		}
 	}
 }
