@@ -3,21 +3,60 @@ package rechenoperationen;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.util.LinkedList;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import main.App;
+import app.App;
 
 public class ImpulsWellenlaenge {
-	public static final double elektronenmasse 	= 9.10938356 * Math.pow(10, -31); // in kg
-	public static final double elementarladung 	= 1.602 * Math.pow(10, -19); // in C
+	public static final double INFINITY = -2.0101001043898;
 	
-	private double[] beschleunigungsspanne; // in v
-	private double[] interferenzradius; // in cm
+	// Exponenten
+	public static final int EXPONENT_10ER_POTENZ_LAMBDA 			= 11;
+	public static final int EXPONENT_10ER_POTENZ_IMPULS 			= 23;
+	public static final int EXPONENT_10ER_POTENZ_KRISTALLGITTER 	= 10;
+	public static final int EXPONENT_10ER_POTENZ_ELEKTRONENMASSE 	= 31;
+	public static final int EXPONENT_10ER_POTENZ_ELEMENTARLADUNG 	= 19;
+	
+	// Einheiten
+	public static final String EINHEIT_BESCHLEUNIGUNGSSPANNE 		= "V";
+	public static final String EINHEIT_INTERFERENZRADIUS 			= "cm";
+	public static final String EINHEIT_KRISTALLGITTER 				= "m";
+	public static final String EINHEIT_LAENGE 						= "cm";
+	public static final String EINHEIT_LAMBDA 						= "m";
+	public static final String EINHEIT_IMPULS 						= "Ns";
+	public static final String EINHEIT_ELEKTRONENMASSE 				= "kg";
+	public static final String EINHEIT_ELEMENTARLADUNG 				= "C";
+	public static final String EINHEIT_ELEKTRONENGESCHWINDIGKEIT 	= "m/s";
+	public static final String EINHEIT_PROPORTIONALITAETSKONSTANTE 	= "Js";
+	
+	// Formelzeichen
+	public static final String FORMELZEICHEN_BESCHLEUNIGUNGSSPANNE 		= "U";
+	public static final String FORMELZEICHEN_INTERFERENZRADIUS 			= "r";
+	public static final String FORMELZEICHEN_KRISTALLGITTER 			= "d";
+	public static final String FORMELZEICHEN_LAENGE 					= "l";
+	public static final String FORMELZEICHEN_LAMBDA 					= "λ";
+	public static final String FORMELZEICHEN_IMPULS 					= "P";
+	public static final String FORMELZEICHEN_ELEKTRONENMASSE 			= "m";
+	public static final String FORMELZEICHEN_ELEMENTARLADUNG 			= "e";
+	public static final String FORMELZEICHEN_ELEKTRONENGESCHWINDIGKEIT 	= "v";
+	
+	// Formeln
+	public static final String FORMEL_LAMBDA 			= "(2 * " + FORMELZEICHEN_KRISTALLGITTER + " * sin(0.5 * arcsin(" + FORMELZEICHEN_INTERFERENZRADIUS + " / " + FORMELZEICHEN_LAENGE + ")) / k";
+	public static final String FORMEL_IMPULS 			= "sqrt(2 * " + FORMELZEICHEN_ELEKTRONENMASSE + " * " + FORMELZEICHEN_ELEMENTARLADUNG + " * " + FORMELZEICHEN_BESCHLEUNIGUNGSSPANNE + ")";
+	public static final String FORMEL_GESCHWINDIGKEIT 	= FORMELZEICHEN_IMPULS + " / " + FORMELZEICHEN_ELEKTRONENMASSE;
+	
+	// Konstanten
+	public static final double ELEKTRONENMASSE 	= 9.10938356 * Math.pow(10, -EXPONENT_10ER_POTENZ_ELEKTRONENMASSE);
+	public static final double ELEMENTARLADUNG 	= 1.602 * Math.pow(10, -EXPONENT_10ER_POTENZ_ELEMENTARLADUNG);
+	
+	private double[] beschleunigungsspanne;
+	private double[] interferenzradius;
 	private double kristallgitter;
-	private double laenge; // in cm
+	private double laenge;
 	private double k;
 	
 	// Konstruktor
@@ -37,7 +76,6 @@ public class ImpulsWellenlaenge {
 			// Exception werfen
 			throw new Exception("Fehlerhafte Angaben");
 		}
-		
 		// Parameter initialisieren
 		this.beschleunigungsspanne 	= beschleunigungsspanne;
 		this.interferenzradius 		= interferenzradius;
@@ -54,12 +92,13 @@ public class ImpulsWellenlaenge {
 		for(int i = 0; i < length; i++) {
 			res[i] = get_lamda(interferenzradius[i]);
 		}
+		
 		return res;
 	}
 	
 	private double get_lamda(double r) {
 		double theta = get_theta(r);
-		return ( 2 * kristallgitter * Math.sin( theta ) ) / k;
+		return 2/ k * kristallgitter * Math.sin( theta );
 	}
 	
 	private double get_theta(double r) {
@@ -71,20 +110,70 @@ public class ImpulsWellenlaenge {
 		int length 		= beschleunigungsspanne.length;
 		double[] res	= new double[length];
 		
-		for(int i = 0; i < 2; i++) {
+		for(int i = 0; i < length; i++) {
 			res[i] = get_impuls(beschleunigungsspanne[i]);
 		}
 		return res;
 	}
 	
 	private double get_impuls(double u) {
-		return Math.sqrt( 2 * elektronenmasse * elementarladung * u);
+		return Math.sqrt( 2 * ELEKTRONENMASSE * ELEMENTARLADUNG * u);
+	}
+	
+	// geschwindigkeit -> in m / s
+	private double[] get_geschwindigkeit(double[] impuls) {
+		int length 		= impuls.length;
+		double[] res	= new double[length];
+		
+		for(int i = 0; i < length; i++) {
+			res[i] = get_geschwindigkeit(impuls[i]);
+		}
+		return res;
+	}
+	
+	private double get_geschwindigkeit(double impuls) {
+		return Math.sqrt( impuls / ELEKTRONENMASSE);
+	}
+	
+	private double[] get_lambda_kehrwert(double [] lambda) {
+		int length 					= lambda.length;
+		double[] lambda_kehrwert	= new double[length];
+		
+		for(int i = 0; i < length; i++) {
+			lambda_kehrwert[i] = 1 / lambda[i];
+		}
+		
+		return lambda_kehrwert;
+	}
+	
+	private double get_proportionalitaetskonstante(double[] lambda_kehrwert, double[] impuls) {
+		int length 	= impuls.length;
+		LinkedList<Double> steigungen = new LinkedList<Double>();
+		
+		for(int i = 0; i < (length - 1); i++) {
+			double impuls_value_first 	= impuls[i] * Math.pow(10, EXPONENT_10ER_POTENZ_IMPULS);
+			double lambda_value_first	= lambda_kehrwert[i] * Math.pow(10, -EXPONENT_10ER_POTENZ_LAMBDA);
+			
+			for(int y = (i + 1); y < length; y++) {
+				double impuls_value_second 	= impuls[y] * Math.pow(10, EXPONENT_10ER_POTENZ_IMPULS);
+				double lambda_value_second	= lambda_kehrwert[y] * Math.pow(10, -EXPONENT_10ER_POTENZ_LAMBDA);
+				
+				double delta_y = impuls_value_first - impuls_value_second;
+				double delta_x = lambda_value_first - lambda_value_second;
+				
+				steigungen.add( delta_y / delta_x );
+			}
+		}
+		
+		double proportionalitaetskonstante = 0;
+		for(double steigung : steigungen) {
+			proportionalitaetskonstante+= steigung;
+		}
+		return proportionalitaetskonstante / steigungen.size();
 	}
 	
 	// resultat -> save
-	public void save_json(String filename) {
-		JSONObject object = this.get_rechenweg_json();
-		
+	public void save_json(String filename, JSONObject object) {
 		try {
 			File f = new File( App.user_folder.toString() + "/" + filename);
 			f.createNewFile();
@@ -101,55 +190,42 @@ public class ImpulsWellenlaenge {
 		}
 	}
 	
-	// resultat -> json format
-	public JSONObject get_diagramm_json() {
+	public JSONObject get_json() throws JSONException {
 		// objekt initialisieren
 		JSONObject object_json = new JSONObject();
 		
-		try {
-			// Lambda
-			object_json.put("lambda", get_array_json( get_lambda() ));
-			
-			// Impuls
-			object_json.put("impuls", get_array_json( get_impuls() ));
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		// Beschleunigungsspanne
+		object_json.put("beschleunigungsspanne", get_array_json( beschleunigungsspanne ));
 		
-		return object_json;
-	}
-	
-	public JSONObject get_rechenweg_json() {
-		// objekt initialisieren
-		JSONObject object_json = new JSONObject();
+		// Radius
+		object_json.put("radius", get_array_json( interferenzradius ));
 		
-		try {
-			// Beschleunigungsspanne
-			object_json.put("beschleunigungsspanne", get_array_json( beschleunigungsspanne ));
-			
-			// Radius
-			object_json.put("radius", get_array_json( interferenzradius ));
-			
-			// Kristallgitter
-			object_json.put("kristallgitter", kristallgitter);
-			
-			// Laenge
-			object_json.put("laenge", laenge);
-			
-			// k
-			object_json.put("k", k);
-			
-			// Lambda
-			object_json.put("lambda", get_array_json( get_lambda() ));
-			
-			// Impuls
-			object_json.put("impuls", get_array_json( get_impuls() ));
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		// Kristallgitter
+		object_json.put("kristallgitter", kristallgitter);
 		
+		// Laenge
+		object_json.put("laenge", laenge);
+		
+		// k
+		object_json.put("k", k);
+		
+		// Lambda
+		double[] lambda = get_lambda();
+		object_json.put("lambda", get_array_json( lambda ));
+		
+		// Lambda Kehrwert
+		double[] lambda_kehrwert = get_lambda_kehrwert(lambda);
+		object_json.put("1/lambda", get_array_json( lambda_kehrwert ));
+		
+		// Impuls
+		double[] impuls = get_impuls();
+		object_json.put("impuls", get_array_json( impuls ));
+		
+		// Proportionalitaetskonstante
+		object_json.put("proportionalitaetskonstante", get_proportionalitaetskonstante(lambda_kehrwert, impuls) );
+		
+		// Geschwindigkeit
+		object_json.put("geschwindigkeit", get_array_json( get_geschwindigkeit(impuls) ));
 		return object_json;
 	}
 	
@@ -157,7 +233,11 @@ public class ImpulsWellenlaenge {
 		JSONArray array_json = new JSONArray();
 		
 		for(double elem : array) {
-			array_json.put(elem);
+			try {
+				array_json.put(elem);
+			} catch (Exception e){
+				array_json.put(INFINITY);
+			}
 		}
 		return array_json;
 	}
