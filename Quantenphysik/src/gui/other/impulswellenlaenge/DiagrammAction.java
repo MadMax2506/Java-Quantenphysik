@@ -8,6 +8,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import rechenoperationen.ImpulsWellenlaenge;
+
 public class DiagrammAction {
 	private DiagrammGUI diagramm;
 	
@@ -26,8 +28,8 @@ public class DiagrammAction {
 		dot.setDotHeight(5);
 		dot.setDotWidth(5);
 		
-		NumberAxis xax = new NumberAxis("1 / Lambda [ 10 ^ -11 m ]");
-		NumberAxis yax = new NumberAxis("Impuls [ 10 ^ 23 m ]");
+		NumberAxis xax = new NumberAxis("1 / Lambda [ 10 ^ -" + ImpulsWellenlaenge.EXPONENT_10ER_POTENZ_LAMBDA + " " + ImpulsWellenlaenge.EINHEIT_LAMBDA + "]");
+		NumberAxis yax = new NumberAxis("Impuls [ 10 ^ " + ImpulsWellenlaenge.EXPONENT_10ER_POTENZ_IMPULS + " " + ImpulsWellenlaenge.EINHEIT_IMPULS + "]");
 		
 		DefaultXYDataset dataset = new DefaultXYDataset();
 		dataset.addSeries( "", new double[][]{ lambda_prepare, impuls_prepare } );
@@ -38,7 +40,7 @@ public class DiagrammAction {
 	// setter
 	public void set_funktion() {
 		diagramm.lblFktgleichungValue.setText( "f(x) = " + proportionalitaetskonstante + " * x");
-		diagramm.lblProportionalitaetsfaktorValue.setText( proportionalitaetskonstante + " Js" );
+		diagramm.lblProportionalitaetsfaktorValue.setText( proportionalitaetskonstante + " " + ImpulsWellenlaenge.EINHEIT_PROPORTIONALITAETSKONSTANTE );
 	}
 	
 	// other
@@ -55,8 +57,8 @@ public class DiagrammAction {
 		impuls_prepare 	= new double[length];
 		
 		for(int i = 0; i < length; i++) {
-			lambda_prepare[i] = (1 / lambda.getDouble(i) ) * Math.pow(10, -11);
-			impuls_prepare[i] = impuls.getDouble(i) * Math.pow(10, 23);
+			lambda_prepare[i] = 1 / (lambda.getDouble(i) * Math.pow(10, ImpulsWellenlaenge.EXPONENT_10ER_POTENZ_LAMBDA));
+			impuls_prepare[i] = impuls.getDouble(i) * Math.pow(10, ImpulsWellenlaenge.EXPONENT_10ER_POTENZ_IMPULS);
 		}
 	}
 }

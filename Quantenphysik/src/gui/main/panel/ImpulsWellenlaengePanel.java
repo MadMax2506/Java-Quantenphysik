@@ -18,6 +18,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 
+import rechenoperationen.ImpulsWellenlaenge;
+
 public class ImpulsWellenlaengePanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
@@ -119,7 +121,7 @@ public class ImpulsWellenlaengePanel extends JPanel {
 		btn_weiter.setFont(new Font("Dialog", Font.BOLD, 10));
 		dynamic_controll.add(btn_weiter);
 		
-		JLabel lblBeschleunigungsspanne = new JLabel("Beschleunigungsspanne (in V)");
+		JLabel lblBeschleunigungsspanne = new JLabel("Beschleunigungsspanne (in " + ImpulsWellenlaenge.EINHEIT_BESCHLEUNIGUNGSSPANNE + ")");
 		GridBagConstraints gbc_lblBeschleunigungsspanne = new GridBagConstraints();
 		gbc_lblBeschleunigungsspanne.fill = GridBagConstraints.BOTH;
 		gbc_lblBeschleunigungsspanne.insets = new Insets(0, 10, 5, 5);
@@ -137,7 +139,7 @@ public class ImpulsWellenlaengePanel extends JPanel {
 		main.add(txtBeschleunigungsspanne, gbc_txtBeschleunigungsspanne);
 		txtBeschleunigungsspanne.setColumns(10);
 		
-		JLabel lblRadius = new JLabel("Interferenzradius (in cm)");
+		JLabel lblRadius = new JLabel("Interferenzradius (in " + ImpulsWellenlaenge.EINHEIT_INTERFERENZRADIUS + ")");
 		GridBagConstraints gbc_lblRadius = new GridBagConstraints();
 		gbc_lblRadius.fill = GridBagConstraints.BOTH;
 		gbc_lblRadius.insets = new Insets(0, 10, 5, 5);
@@ -182,7 +184,7 @@ public class ImpulsWellenlaengePanel extends JPanel {
 		gbc_txtLaenge.gridy = 6;
 		main.add(txtLaenge, gbc_txtLaenge);
 		
-		JLabel lblKristallgitter = new JLabel("Kristallgitter (in 10 ^ 10 m)");
+		JLabel lblKristallgitter = new JLabel("Kristallgitter (in 10 ^ " + ImpulsWellenlaenge.EXPONENT_10ER_POTENZ_KRISTALLGITTER + " " + ImpulsWellenlaenge.EINHEIT_KRISTALLGITTER + ")");
 		GridBagConstraints gbc_lblKristallgitter = new GridBagConstraints();
 		gbc_lblKristallgitter.fill = GridBagConstraints.BOTH;
 		gbc_lblKristallgitter.insets = new Insets(0, 10, 5, 5);

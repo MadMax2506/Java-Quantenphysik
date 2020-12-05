@@ -30,41 +30,47 @@ public class RechenwegAction {
 		return combobox_labels;
 	}
 	
-	public void set_rechenweg_werte() {
-		int selectindex = rechenweg.comboBox.getSelectedIndex();
+	public void set_statische_rechenweg_werte() {
+		String laenge 			= Helper.round(this.laenge, 4) + " " + ImpulsWellenlaenge.EINHEIT_LAENGE;
+		String kristallgitter	= Helper.round(this.kristallgitter, 4) + " * (10 ^ -" + ImpulsWellenlaenge.EXPONENT_10ER_POTENZ_KRISTALLGITTER + ") " + ImpulsWellenlaenge.EINHEIT_KRISTALLGITTER;
+		String k				= Helper.round(this.k, 4) + "";
 		
-		String beschleunigungsspanne 	= Helper.round(beschleunigungsspanne_prepare[selectindex], 4) + " V";
-		String radius 					= Helper.round(radius_prepare[selectindex], 4) + " cm";
-		String laenge 					= Helper.round(this.laenge, 4) + " cm";
-		String kristallgitter			= Helper.round(this.kristallgitter, 4) + " * (10 ^ -" + ImpulsWellenlaenge.EXPONENT_10ER_POTENZ_KRISTALLGITTER + ") m";
-		String k						= Helper.round(this.k, 4) + "";
+		String elementarladung = Helper.round(ImpulsWellenlaenge.ELEMENTARLADUNG * Math.pow(10, ImpulsWellenlaenge.EXPONENT_10ER_POTENZ_ELEMENTARLADUNG), 4)  + " 10 ^ -" + ImpulsWellenlaenge.EXPONENT_10ER_POTENZ_ELEMENTARLADUNG + " " + ImpulsWellenlaenge.EINHEIT_ELEMENTARLADUNG;
+		String elektronenmasse = Helper.round(ImpulsWellenlaenge.ELEKTRONENMASSE * Math.pow(10, ImpulsWellenlaenge.EXPONENT_10ER_POTENZ_ELEKTRONENMASSE), 4)  + " 10 ^ -" + ImpulsWellenlaenge.EXPONENT_10ER_POTENZ_ELEKTRONENMASSE + " " + ImpulsWellenlaenge.EINHEIT_ELEKTRONENMASSE;
 		
-		double lambda_value 	= lambda_prepare[selectindex];
-		String lambda 			= (lambda_value == ImpulsWellenlaenge.INFINITY ? "∞" : Helper.round(lambda_value, 4) + " * (10 ^ -" + ImpulsWellenlaenge.EXPONENT_10ER_POTENZ_LAMBDA + ")") + " m";
-		String lambda_rechenweg = "(2 * d * sin(0.5 * arcsin(r / l)) / k";
-		
-		double impuls_value 	= impuls_prepare[selectindex];
-		String impuls			= (impuls_value == ImpulsWellenlaenge.INFINITY ? "∞" : Helper.round(impuls_value, 4) + " * (10 ^ -" + ImpulsWellenlaenge.EXPONENT_10ER_POTENZ_IMPULS + ")" ) + " m";
-		String impuls_rechenweg = "sqrt(2 * m * e * U)";
-		
-		double geschwindigkeit_value 		= geschwindigkeit_prepare[selectindex];
-		String geschwindigkeit				= (geschwindigkeit_value == ImpulsWellenlaenge.INFINITY ? "∞" : Helper.round(geschwindigkeit_value, 4)) + " m / s";
-		String geschwindigkeit_rechenweg 	= "P / m";
-		
-		rechenweg.lblBeschleunigungsspanneValue.setText( beschleunigungsspanne );
-		rechenweg.lblInterferenzradiusValue.setText( radius );
 		rechenweg.lblLaengeValue.setText( laenge );
 		rechenweg.lblKristallgitterValue.setText( kristallgitter );
 		rechenweg.lblKValue.setText( k );
 		
+		rechenweg.lblElementarladungValue.setText( elementarladung );
+		rechenweg.lblElektronenmasseValue.setText( elektronenmasse );
+
+		rechenweg.lblLambdaRechenweg.setText( ImpulsWellenlaenge.FORMEL_LAMBDA );
+		rechenweg.lblImpulsRechenweg.setText( ImpulsWellenlaenge.FORMEL_IMPULS );
+		rechenweg.lblGeschwindigkeitRechenweg.setText( ImpulsWellenlaenge.FORMEL_GESCHWINDIGKEIT );
+	}
+	
+	public void set_dynamische_rechenweg_werte() {
+		int selectindex = rechenweg.comboBox.getSelectedIndex();
+		
+		String beschleunigungsspanne = Helper.round(beschleunigungsspanne_prepare[selectindex], 4) + " " + ImpulsWellenlaenge.EINHEIT_BESCHLEUNIGUNGSSPANNE;
+		String radius 				= Helper.round(radius_prepare[selectindex], 4) + " " + ImpulsWellenlaenge.EINHEIT_INTERFERENZRADIUS;
+		
+		double lambda_value = lambda_prepare[selectindex];
+		String lambda 		= (lambda_value == ImpulsWellenlaenge.INFINITY ? "∞" : Helper.round(lambda_value, 4) + " * (10 ^ -" + ImpulsWellenlaenge.EXPONENT_10ER_POTENZ_LAMBDA + ")") + " " + ImpulsWellenlaenge.EINHEIT_LAMBDA;
+		
+		double impuls_value = impuls_prepare[selectindex];
+		String impuls		= (impuls_value == ImpulsWellenlaenge.INFINITY ? "∞" : Helper.round(impuls_value, 4) + " * (10 ^ -" + ImpulsWellenlaenge.EXPONENT_10ER_POTENZ_IMPULS + ")" ) + " " + ImpulsWellenlaenge.EINHEIT_IMPULS;
+		
+		double geschwindigkeit_value	= geschwindigkeit_prepare[selectindex];
+		String geschwindigkeit			= (geschwindigkeit_value == ImpulsWellenlaenge.INFINITY ? "∞" : Helper.round(geschwindigkeit_value, 4)) + " " + ImpulsWellenlaenge.EINHEIT_ELEKTRONENGESCHWINDIGKEIT;
+		
+		rechenweg.lblBeschleunigungsspanneValue.setText( beschleunigungsspanne );
+		rechenweg.lblInterferenzradiusValue.setText( radius );
+		
 		rechenweg.lblLambdaValue.setText( lambda );
-		rechenweg.lblLambdaRechenweg.setText( lambda_rechenweg );
-		
 		rechenweg.lblImpulsValue.setText( impuls );
-		rechenweg.lblImpulsRechenweg.setText( impuls_rechenweg );
-		
 		rechenweg.lblGeschwindigkeitValue.setText( geschwindigkeit );
-		rechenweg.lblGeschwindigkeitRechenweg.setText( geschwindigkeit_rechenweg );
 		
 		rechenweg.repaint();
 	}
@@ -77,7 +83,7 @@ public class RechenwegAction {
 		JSONArray impuls 				= data_json.getJSONArray("impuls");
 		JSONArray geschwindigkeit 		= data_json.getJSONArray("geschwindigkeit");
 		
-		kristallgitter	= data_json.getDouble("kristallgitter") * Math.pow(10, 10);
+		kristallgitter	= data_json.getDouble("kristallgitter") * Math.pow(10, ImpulsWellenlaenge.EXPONENT_10ER_POTENZ_KRISTALLGITTER);
 		laenge			= data_json.getDouble("laenge");
 		k				= data_json.getInt("k");
 		
@@ -94,8 +100,8 @@ public class RechenwegAction {
 			combobox_labels[i]					= "Rechenweg für Element " + (i + 1) + " / " + length;
 			beschleunigungsspanne_prepare[i] 	= beschleunigungsspanne.getDouble(i);
 			radius_prepare[i] 					= radius.getDouble(i);
-			lambda_prepare[i] 					= lambda.getDouble(i) * Math.pow(10, 11);
-			impuls_prepare[i] 					= impuls.getDouble(i) * Math.pow(10, 23);
+			lambda_prepare[i] 					= lambda.getDouble(i) * Math.pow(10, ImpulsWellenlaenge.EXPONENT_10ER_POTENZ_LAMBDA);
+			impuls_prepare[i] 					= impuls.getDouble(i) * Math.pow(10, ImpulsWellenlaenge.EXPONENT_10ER_POTENZ_IMPULS);
 			geschwindigkeit_prepare[i]			= geschwindigkeit.getDouble(i);
 		}
 		

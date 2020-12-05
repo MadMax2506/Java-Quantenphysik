@@ -14,40 +14,50 @@ import app.App;
 public class ImpulsWellenlaenge {
 	public static final double INFINITY = -2.0101001043898;
 	
+	// Exponenten
 	public static final int EXPONENT_10ER_POTENZ_LAMBDA 			= 11;
 	public static final int EXPONENT_10ER_POTENZ_IMPULS 			= 23;
 	public static final int EXPONENT_10ER_POTENZ_KRISTALLGITTER 	= 10;
 	public static final int EXPONENT_10ER_POTENZ_ELEKTRONENMASSE 	= 31;
 	public static final int EXPONENT_10ER_POTENZ_ELEMENTARLADUNG 	= 19;
 	
-	public static final String EINHEIT_BESCHLEUNIGUNGSSPANNE = "V";
-	public static final String EINHEIT_INTERFERENZRADIUS = "cm";
-	public static final String EINHEIT_KRISTALLGITTER = "m";
-	public static final String EINHEIT_LAENGE = "cm";
-	public static final String EINHEIT_LAMBDA = "m";
-	public static final String EINHEIT_IMPULS = "Ns";
-	public static final String EINHEIT_ELEKTRONENMASSE = "kg";
-	public static final String EINHEIT_ELEMENTARLADUNG = "C";
-	public static final String EINHEIT_ELEKTRONENGESCHWINDIGKEIT = "m / s";
+	// Einheiten
+	public static final String EINHEIT_BESCHLEUNIGUNGSSPANNE 		= "V";
+	public static final String EINHEIT_INTERFERENZRADIUS 			= "cm";
+	public static final String EINHEIT_KRISTALLGITTER 				= "m";
+	public static final String EINHEIT_LAENGE 						= "cm";
+	public static final String EINHEIT_LAMBDA 						= "m";
+	public static final String EINHEIT_IMPULS 						= "Ns";
+	public static final String EINHEIT_ELEKTRONENMASSE 				= "kg";
+	public static final String EINHEIT_ELEMENTARLADUNG 				= "C";
+	public static final String EINHEIT_ELEKTRONENGESCHWINDIGKEIT 	= "m/s";
+	public static final String EINHEIT_PROPORTIONALITAETSKONSTANTE 	= "Js";
 	
-	public static final double ELEKTRONENMASSE 	= 9.10938356 * Math.pow(10, -EXPONENT_10ER_POTENZ_ELEKTRONENMASSE); // in kg
-	public static final double ELEMENTARLADUNG 	= 1.602 * Math.pow(10, -EXPONENT_10ER_POTENZ_ELEMENTARLADUNG); // in C
+	// Formelzeichen
+	public static final String FORMELZEICHEN_BESCHLEUNIGUNGSSPANNE 		= "U";
+	public static final String FORMELZEICHEN_INTERFERENZRADIUS 			= "r";
+	public static final String FORMELZEICHEN_KRISTALLGITTER 			= "d";
+	public static final String FORMELZEICHEN_LAENGE 					= "l";
+	public static final String FORMELZEICHEN_LAMBDA 					= "λ";
+	public static final String FORMELZEICHEN_IMPULS 					= "P";
+	public static final String FORMELZEICHEN_ELEKTRONENMASSE 			= "m";
+	public static final String FORMELZEICHEN_ELEMENTARLADUNG 			= "e";
+	public static final String FORMELZEICHEN_ELEKTRONENGESCHWINDIGKEIT 	= "v";
 	
-	private double[] beschleunigungsspanne; // in v
-	private double[] interferenzradius; // in cm
-	private double kristallgitter; // in m
-	private double laenge; // in cm
+	// Formeln
+	public static final String FORMEL_LAMBDA 			= "(2 * " + FORMELZEICHEN_KRISTALLGITTER + " * sin(0.5 * arcsin(" + FORMELZEICHEN_INTERFERENZRADIUS + " / " + FORMELZEICHEN_LAENGE + ")) / k";
+	public static final String FORMEL_IMPULS 			= "sqrt(2 * " + FORMELZEICHEN_ELEKTRONENMASSE + " * " + FORMELZEICHEN_ELEMENTARLADUNG + " * " + FORMELZEICHEN_BESCHLEUNIGUNGSSPANNE + ")";
+	public static final String FORMEL_GESCHWINDIGKEIT 	= FORMELZEICHEN_IMPULS + " / " + FORMELZEICHEN_ELEKTRONENMASSE;
+	
+	// Konstanten
+	public static final double ELEKTRONENMASSE 	= 9.10938356 * Math.pow(10, -EXPONENT_10ER_POTENZ_ELEKTRONENMASSE);
+	public static final double ELEMENTARLADUNG 	= 1.602 * Math.pow(10, -EXPONENT_10ER_POTENZ_ELEMENTARLADUNG);
+	
+	private double[] beschleunigungsspanne;
+	private double[] interferenzradius;
+	private double kristallgitter;
+	private double laenge;
 	private double k;
-	
-	public static void main(String[] args) {
-		try {
-			ImpulsWellenlaenge iw = new ImpulsWellenlaenge(new double[] {2200, 3500}, new double[] {1.58, 1.35}, 2.13 * Math.pow(10, -EXPONENT_10ER_POTENZ_KRISTALLGITTER), 13);
-			iw.get_json();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 	
 	// Konstruktor
 	public ImpulsWellenlaenge(double[] beschleunigungsspanne, double[] interferenzradius, double kristallgitter, double laenge) throws Exception {

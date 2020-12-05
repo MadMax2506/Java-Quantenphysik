@@ -29,6 +29,9 @@ public class RechenwegGUI extends JFrame {
 	public JLabel lblKristallgitterValue;
 	public JLabel lblKValue;
 	
+	public JLabel lblElementarladungValue;
+	public JLabel lblElektronenmasseValue;
+	
 	public JLabel lblLambdaValue;
 	public JLabel lblLambdaRechenweg;
 	
@@ -81,7 +84,7 @@ public class RechenwegGUI extends JFrame {
 		gbl_main.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0};
 		main.setLayout(gbl_main);
 		
-		JLabel lblBeschleunigungsspanne = new JLabel("Beschleunigungsspanne (u)");
+		JLabel lblBeschleunigungsspanne = new JLabel("Beschleunigungsspanne (" + ImpulsWellenlaenge.FORMELZEICHEN_BESCHLEUNIGUNGSSPANNE + ")");
 		lblBeschleunigungsspanne.setHorizontalAlignment(SwingConstants.LEFT);
 		GridBagConstraints gbc_lblBeschleunigungsspanne = new GridBagConstraints();
 		gbc_lblBeschleunigungsspanne.fill = GridBagConstraints.HORIZONTAL;
@@ -100,7 +103,7 @@ public class RechenwegGUI extends JFrame {
 		gbc_lblBeschleunigungsspanneValue.gridy = 0;
 		main.add(lblBeschleunigungsspanneValue, gbc_lblBeschleunigungsspanneValue);
 		
-		JLabel lblInterferenzradius = new JLabel("Interferenzradius (r)");
+		JLabel lblInterferenzradius = new JLabel("Interferenzradius (" + ImpulsWellenlaenge.FORMELZEICHEN_INTERFERENZRADIUS + ")");
 		lblInterferenzradius.setHorizontalAlignment(SwingConstants.LEFT);
 		GridBagConstraints gbc_lblInterferenzradius = new GridBagConstraints();
 		gbc_lblInterferenzradius.fill = GridBagConstraints.BOTH;
@@ -119,7 +122,7 @@ public class RechenwegGUI extends JFrame {
 		gbc_lblInterferenzradiusValue.gridy = 1;
 		main.add(lblInterferenzradiusValue, gbc_lblInterferenzradiusValue);
 		
-		JLabel lblLaenge = new JLabel("Länge (l)");
+		JLabel lblLaenge = new JLabel("Länge (" + ImpulsWellenlaenge.FORMELZEICHEN_LAENGE +")");
 		lblLaenge.setHorizontalAlignment(SwingConstants.LEFT);
 		GridBagConstraints gbc_lblLaenge = new GridBagConstraints();
 		gbc_lblLaenge.fill = GridBagConstraints.BOTH;
@@ -138,7 +141,7 @@ public class RechenwegGUI extends JFrame {
 		gbc_lblLaengeValue.gridy = 2;
 		main.add(lblLaengeValue, gbc_lblLaengeValue);
 		
-		JLabel lblKristallgitter = new JLabel("Kristallgitter (d)");
+		JLabel lblKristallgitter = new JLabel("Kristallgitter (" + ImpulsWellenlaenge.FORMELZEICHEN_KRISTALLGITTER + ")");
 		lblKristallgitter.setHorizontalAlignment(SwingConstants.LEFT);
 		GridBagConstraints gbc_lblKristallgitter = new GridBagConstraints();
 		gbc_lblKristallgitter.fill = GridBagConstraints.BOTH;
@@ -185,7 +188,7 @@ public class RechenwegGUI extends JFrame {
 		gbc_separator_one.gridy = 5;
 		main.add(separator_one, gbc_separator_one);
 		
-		JLabel lblElektronenmasse = new JLabel("Elektronenmasse (m)");
+		JLabel lblElektronenmasse = new JLabel("Elektronenmasse (" + ImpulsWellenlaenge.FORMELZEICHEN_ELEKTRONENMASSE + ")");
 		lblElektronenmasse.setHorizontalAlignment(SwingConstants.LEFT);
 		GridBagConstraints gbc_lblElektronenmasse = new GridBagConstraints();
 		gbc_lblElektronenmasse.fill = GridBagConstraints.BOTH;
@@ -194,7 +197,7 @@ public class RechenwegGUI extends JFrame {
 		gbc_lblElektronenmasse.gridy = 6;
 		main.add(lblElektronenmasse, gbc_lblElektronenmasse);
 		
-		JLabel lblElektronenmasseValue = new JLabel( Helper.round(ImpulsWellenlaenge.ELEKTRONENMASSE * Math.pow(10, 31), 4)  + " 10 ^ -31 kg");
+		lblElektronenmasseValue = new JLabel();
 		lblElektronenmasseValue.setHorizontalAlignment(SwingConstants.LEFT);
 		lblKValue.setHorizontalAlignment(SwingConstants.LEFT);
 		GridBagConstraints gbc_lblElektronenmasseValue = new GridBagConstraints();
@@ -205,7 +208,7 @@ public class RechenwegGUI extends JFrame {
 		gbc_lblElektronenmasseValue.gridy = 6;
 		main.add(lblElektronenmasseValue, gbc_lblElektronenmasseValue);
 		
-		JLabel lblElementarladung = new JLabel("Elementarladung (e)");
+		JLabel lblElementarladung = new JLabel("Elementarladung (" + ImpulsWellenlaenge.FORMELZEICHEN_ELEMENTARLADUNG + ")");
 		lblElementarladung.setHorizontalAlignment(SwingConstants.LEFT);
 		GridBagConstraints gbc_lblElementarladung = new GridBagConstraints();
 		gbc_lblElementarladung.fill = GridBagConstraints.BOTH;
@@ -214,7 +217,7 @@ public class RechenwegGUI extends JFrame {
 		gbc_lblElementarladung.gridy = 7;
 		main.add(lblElementarladung, gbc_lblElementarladung);
 		
-		JLabel lblElementarladungValue = new JLabel( Helper.round(ImpulsWellenlaenge.ELEMENTARLADUNG * Math.pow(10, 19), 4) + " 10 ^ -19 C");
+		lblElementarladungValue = new JLabel( Helper.round(ImpulsWellenlaenge.ELEMENTARLADUNG * Math.pow(10, 19), 4) + " 10 ^ -19 C");
 		lblElementarladungValue.setHorizontalAlignment(SwingConstants.LEFT);
 		GridBagConstraints gbc_lblElementarladungValue = new GridBagConstraints();
 		gbc_lblElementarladungValue.fill = GridBagConstraints.BOTH;
@@ -233,7 +236,7 @@ public class RechenwegGUI extends JFrame {
 		gbc_separator_two.gridy = 8;
 		main.add(separator_two, gbc_separator_two);
 		
-		JLabel lblLambda = new JLabel("Lamdba (λ)");
+		JLabel lblLambda = new JLabel("Lamdba (" + ImpulsWellenlaenge.FORMELZEICHEN_LAMBDA + ")");
 		lblLambda.setHorizontalAlignment(SwingConstants.LEFT);
 		GridBagConstraints gbc_lblLambda = new GridBagConstraints();
 		gbc_lblLambda.fill = GridBagConstraints.BOTH;
@@ -262,7 +265,7 @@ public class RechenwegGUI extends JFrame {
 		gbc_lblLambdaRechenweg.gridy = 9;
 		main.add(lblLambdaRechenweg, gbc_lblLambdaRechenweg);
 		
-		JLabel lblImpuls = new JLabel("Impuls (P)");
+		JLabel lblImpuls = new JLabel("Impuls (" + ImpulsWellenlaenge.FORMELZEICHEN_IMPULS + ")");
 		lblImpuls.setHorizontalAlignment(SwingConstants.LEFT);
 		GridBagConstraints gbc_lblImpuls = new GridBagConstraints();
 		gbc_lblImpuls.fill = GridBagConstraints.BOTH;
@@ -291,7 +294,7 @@ public class RechenwegGUI extends JFrame {
 		gbc_lblImpulsRechenweg.gridy = 10;
 		main.add(lblImpulsRechenweg, gbc_lblImpulsRechenweg);
 		
-		JLabel lblGeschwindigkeit = new JLabel("Geschwindigkeit (v)");
+		JLabel lblGeschwindigkeit = new JLabel("Geschwindigkeit (" + ImpulsWellenlaenge.FORMELZEICHEN_ELEKTRONENGESCHWINDIGKEIT + ")");
 		lblGeschwindigkeit.setHorizontalAlignment(SwingConstants.LEFT);
 		GridBagConstraints gbc_lblGeschwindigkeit = new GridBagConstraints();
 		gbc_lblGeschwindigkeit.fill = GridBagConstraints.BOTH;
@@ -321,8 +324,10 @@ public class RechenwegGUI extends JFrame {
 		main.add(lblGeschwindigkeitRechenweg, gbc_lblGeschwindigkeitRechenweg);
 		
 		// Actions
-		frame_action.set_rechenweg_werte();
-		comboBox.addActionListener((e) -> frame_action.set_rechenweg_werte());
+		frame_action.set_statische_rechenweg_werte();
+		frame_action.set_dynamische_rechenweg_werte();
+		
+		comboBox.addActionListener((e) -> frame_action.set_dynamische_rechenweg_werte());
 	}
 	
 	private void set_look_and_feel() {		
