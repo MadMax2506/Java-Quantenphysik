@@ -18,6 +18,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 
+import gui.main.panel.action.ImpulsWellenlaengeBerechnen;
 import rechenoperationen.ImpulsWellenlaenge;
 
 public class ImpulsWellenlaengeBerechnenPanel extends JPanel {
@@ -60,8 +61,8 @@ public class ImpulsWellenlaengeBerechnenPanel extends JPanel {
 		gbl_main.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
 		gbl_main.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		main.setLayout(gbl_main);
-		JScrollPane impulsWellenlaengeScrollPanel = new JScrollPane(main, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		add(impulsWellenlaengeScrollPanel, BorderLayout.CENTER);
+		JScrollPane impulsWellenLaengeBerechnenScrollPanel = new JScrollPane(main, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		add(impulsWellenLaengeBerechnenScrollPanel, BorderLayout.CENTER);
 		
 		JLabel lblAnzahlDerElemente = new JLabel("Anzahl der Elemente");
 		GridBagConstraints gbc_lblAnzahlDerElemente = new GridBagConstraints();
@@ -298,7 +299,7 @@ public class ImpulsWellenlaengeBerechnenPanel extends JPanel {
 
 		
 		// aktionen initalisieren
-		ImpulsWellenlaengeBerechnenAction panel_action = new ImpulsWellenlaengeBerechnenAction(this);
+		ImpulsWellenlaengeBerechnen panel_action = new ImpulsWellenlaengeBerechnen(this);
 		
 		// anzahl der elemente
 
@@ -331,7 +332,7 @@ public class ImpulsWellenlaengeBerechnenPanel extends JPanel {
 	}
 
 	
-	private KeyListener addKeyListener(ImpulsWellenlaengeBerechnenAction panel_action) {
+	private KeyListener addKeyListener(ImpulsWellenlaengeBerechnen panel_action) {
 		return new KeyListener() {	
 			@Override
 			public void keyTyped(KeyEvent e) {}
