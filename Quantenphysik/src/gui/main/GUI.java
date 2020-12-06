@@ -1,6 +1,9 @@
 package gui.main;
 
 import java.awt.CardLayout;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.io.File;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -31,6 +34,9 @@ public class GUI extends JFrame {
 		int height 	= 400;
 		
 		set_look_and_feel();
+		
+		Image icon = Toolkit.getDefaultToolkit().getImage( new File("assets/image/icon.png").getAbsolutePath() );    
+		setIconImage(icon);    
 		
 		setTitle("Quantenphysik");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
