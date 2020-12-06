@@ -1,4 +1,4 @@
-package gui.main.panel;
+package gui.main.panel.action;
 
 import java.awt.EventQueue;
 import java.util.LinkedList;
@@ -9,12 +9,11 @@ import javax.swing.JTextField;
 import org.json.JSONObject;
 
 import app.App;
-import gui.other.impulswellenlaenge.DiagrammGUI;
-import gui.other.impulswellenlaenge.RechenwegGUI;
+import gui.main.panel.ImpulsWellenlaengeBerechnenPanel;
 import rechenoperationen.Helper;
 import rechenoperationen.ImpulsWellenlaenge;
 
-public class ImpulsWellenlaengeBerechnenAction {
+public class ImpulsWellenlaengeBerechnen {
 	public final double EMPTY_VALUE 	= -1.12321312321;
 	public final int MIN_COUNT_ELEMENTS = 1;
 	
@@ -37,7 +36,7 @@ public class ImpulsWellenlaengeBerechnenAction {
 	private boolean show_rechenweg;
 	private boolean show_diagramm;
 	
-	public ImpulsWellenlaengeBerechnenAction(ImpulsWellenlaengeBerechnenPanel elektronenPanel) {
+	public ImpulsWellenlaengeBerechnen(ImpulsWellenlaengeBerechnenPanel elektronenPanel) {
 		this.elektronenPanel = elektronenPanel;
 		
 		set_default();
@@ -201,13 +200,11 @@ public class ImpulsWellenlaengeBerechnenAction {
 		}
 		
 		if(show_rechenweg) {
-			JSONObject rechenweg_json = data_json;
-			EventQueue.invokeLater(() -> start_rechenweg(rechenweg_json));
+			EventQueue.invokeLater(() -> Global.start_rechenweg(data_json));
 		}
 		
 		if(show_diagramm) {
-			JSONObject diagramm_json = data_json;
-			EventQueue.invokeLater(() -> start_diagramm(diagramm_json));
+			EventQueue.invokeLater(() -> Global.start_diagramm(data_json));
 		}
 	}
 
@@ -259,25 +256,6 @@ public class ImpulsWellenlaengeBerechnenAction {
 		} catch (Exception e) {
 			txtField.setText(default_value);
 			return EMPTY_VALUE;
-		}
-	}
-	
-	// start
-	private void start_diagramm(JSONObject data_json)  {
-		try {
-			DiagrammGUI iwd = new DiagrammGUI(data_json);
-			iwd.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	private void start_rechenweg(JSONObject data_json)  {
-		try {
-			RechenwegGUI iwr = new RechenwegGUI(data_json);
-			iwr.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
 	}
 }

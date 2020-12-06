@@ -72,7 +72,7 @@ public class GUI extends JFrame {
 		JPanel impulsWellenlaengeBerechnenPanel = new ImpulsWellenlaengeBerechnenPanel(height, width);
 		contentPane.add(impulsWellenlaengeBerechnenPanel, IMPULSWELLENLAENGE_BERECHNEN_PANEL_NAME);
 		
-		JPanel impulsWellenlaengeLadenPanel = new ImpulsWellenlaengeLadenPanel();
+		JPanel impulsWellenlaengeLadenPanel = new ImpulsWellenlaengeLadenPanel(height, width);
 		contentPane.add(impulsWellenlaengeLadenPanel, IMPULSWELLENLAENGE_LADEN_PANEL_NAME);
 		
 		show_panel(HOME_PANEL_NAME);
