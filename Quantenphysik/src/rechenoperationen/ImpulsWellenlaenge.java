@@ -192,37 +192,84 @@ public class ImpulsWellenlaenge {
 		JSONObject object_json = new JSONObject();
 		
 		// Beschleunigungsspanne
-		object_json.put("beschleunigungsspanne", get_array_json( beschleunigungsspanne ));
+		try {
+			object_json.put("beschleunigungsspanne", get_array_json( beschleunigungsspanne ));
+		} catch(Exception e) {
+			object_json.put("beschleunigungsspanne", get_array_json( new double[]{0} ));
+		}
 		
 		// Radius
-		object_json.put("radius", get_array_json( interferenzradius ));
+		try {
+			object_json.put("radius", get_array_json( interferenzradius ));
+		} catch(Exception e) {
+			object_json.put("radius", get_array_json( new double[]{0} ));
+		}
 		
 		// Kristallgitter
-		object_json.put("kristallgitter", kristallgitter);
+		try {
+			object_json.put("kristallgitter", kristallgitter);
+		} catch(Exception e) {
+			object_json.put("kristallgitter", 0);
+		}
 		
 		// Laenge
-		object_json.put("laenge", laenge);
+		try {
+			object_json.put("laenge", laenge );
+		} catch(Exception e) {
+			object_json.put("laenge", 0 );
+		}
 		
 		// k
-		object_json.put("k", k);
+		try {
+			object_json.put("k", k );
+		} catch(Exception e) {
+			object_json.put("k", 0 );
+		}
 		
 		// Lambda
-		double[] lambda = get_lambda();
-		object_json.put("lambda", get_array_json( lambda ));
+		double[] lambda;
+		try {
+			lambda = get_lambda();
+			object_json.put("lambda", get_array_json( lambda ) );
+		} catch(Exception e) {
+			lambda = new double[] {0};
+			object_json.put("lambda", get_array_json( lambda ) );
+		}
 		
 		// Lambda Kehrwert
-		double[] lambda_kehrwert = get_lambda_kehrwert(lambda);
-		object_json.put("1/lambda", get_array_json( lambda_kehrwert ));
+		double[] lambda_kehrwert;
+		try {
+			lambda_kehrwert = get_lambda_kehrwert(lambda);
+			object_json.put("1/lambda", get_array_json( lambda_kehrwert ) );
+		} catch(Exception e) {
+			lambda_kehrwert = new double[] {0};
+			object_json.put("1/lambda", get_array_json( lambda_kehrwert ) );
+		}
 		
 		// Impuls
-		double[] impuls = get_impuls();
-		object_json.put("impuls", get_array_json( impuls ));
+		double[] impuls;
+		try {
+			impuls = get_impuls();
+			object_json.put("impuls", get_array_json( impuls ));
+		} catch(Exception e) {
+			impuls = new double[] {0};
+			object_json.put("impuls", get_array_json( impuls ));
+		}
 		
 		// Proportionalitaetskonstante
-		object_json.put("proportionalitaetskonstante", get_proportionalitaetskonstante(lambda_kehrwert, impuls) );
+		try {
+			object_json.put("proportionalitaetskonstante", get_proportionalitaetskonstante(lambda_kehrwert, impuls) );
+		} catch(Exception e) {
+			object_json.put("proportionalitaetskonstante", 0);
+		}
 		
 		// Geschwindigkeit
-		object_json.put("geschwindigkeit", get_array_json( get_geschwindigkeit(impuls) ));
+		try {
+			object_json.put("geschwindigkeit", get_array_json( get_geschwindigkeit(impuls) ) );
+		} catch(Exception e) {
+			object_json.put("geschwindigkeit", 0);
+		}
+		
 		return object_json;
 	}
 	
