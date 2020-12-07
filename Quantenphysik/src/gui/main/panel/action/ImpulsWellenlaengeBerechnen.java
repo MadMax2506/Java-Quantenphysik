@@ -188,6 +188,7 @@ public class ImpulsWellenlaengeBerechnen {
 			impuls_wellenlaenge = new ImpulsWellenlaenge(Helper.to_array(beschleunigungsspanne), Helper.to_array(interferenz_radius), kristallgitter, laenge, k);
 			data_json = impuls_wellenlaenge.get_json();
 		} catch (Exception e) {
+			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Leider ist ein Systemfehler aufgetreten.\nVersuchen Sie es zu einem späteren Zeitpunkt erneut...", "Systemfehler", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
@@ -202,6 +203,12 @@ public class ImpulsWellenlaengeBerechnen {
 	        int res = chooser.showSaveDialog(null);
 			if(res == JFileChooser.APPROVE_OPTION) {
 				File f = chooser.getSelectedFile();
+				
+				String file_string 		= f.toString();
+				if(!file_string.endsWith(".json")) {
+					f = new File( file_string + ".json" );
+				}
+				
 				impuls_wellenlaenge.save_json( f, data_json );
 			}
 		}
