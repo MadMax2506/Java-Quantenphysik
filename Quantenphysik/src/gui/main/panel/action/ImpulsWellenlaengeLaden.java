@@ -4,22 +4,19 @@ import java.awt.EventQueue;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.util.LinkedList;
 
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 import org.json.JSONObject;
 
-import app.App;
+import gui.filechooser.impulswellenlaenge.LoadFile;
 import gui.main.panel.ImpulsWellenlaengeLadenPanel;
 
 public class ImpulsWellenlaengeLaden {
 	public final double EMPTY_VALUE = -1.12321312321;
 	
 	private ImpulsWellenlaengeLadenPanel elektronenPanel;
-
-	private int selected_file_index;
-	private LinkedList<String> file_elements;
 	
 	private boolean show_rechenweg;
 	private boolean show_diagramm;
@@ -32,8 +29,6 @@ public class ImpulsWellenlaengeLaden {
 	
 	// setter
 	private void set_default() {
-		set_files();
-		
 		show_rechenweg = true;
 		elektronenPanel.cbRechenweg.setSelected(show_rechenweg);
 		
@@ -41,28 +36,6 @@ public class ImpulsWellenlaengeLaden {
 		elektronenPanel.cbDiagramm.setSelected(show_diagramm);
 		
 		set_checkboxen();
-	}
-	
-	private void set_files() {
-		selected_file_index = (int)EMPTY_VALUE;
-		file_elements = new LinkedList<String>();
-		
-		File[] folder_entries = App.user_folder.listFiles();
-		for (File fileEntry : folder_entries) {
-			String file_name = fileEntry.getName();
-			
-	        if (!fileEntry.isDirectory() && file_name.contains(".json")) {
-	            file_elements.add( file_name );
-	        }
-	    }
-		
-		String[] file_elements_array	= new String[file_elements.size()];
-		file_elements_array 			= file_elements.toArray(file_elements_array);
-		elektronenPanel.list_files.setListData( file_elements_array );
-	}
-
-	public void set_selected_value(int index) {
-		selected_file_index = index;
 	}
 	
 	public void set_checkboxen() {
@@ -82,15 +55,21 @@ public class ImpulsWellenlaengeLaden {
 	
 	// other
 	public void load_data() {
-		if(selected_file_index == (int)EMPTY_VALUE) {
-			JOptionPane.showMessageDialog(null, "Bitte wählen Sie eine Datei, die Sie laden möchten", "Fehlende Auswahl", JOptionPane.WARNING_MESSAGE);
+		// Dialog zum Laden der Dateien anzeigen
+		JFileChooser chooser = new LoadFile();
+
+        int res = chooser.showOpenDialog(null);
+
+        File f;
+        if(res == JFileChooser.APPROVE_OPTION) {
+			f = chooser.getSelectedFile();
+		} else  {
 			return;
 		}
 		
 		JSONObject data_json;
 		try {
-			File file 			= new File( App.user_folder.toString() + "/" + file_elements.get(selected_file_index) );
-			FileReader fr 		= new FileReader(file);
+			FileReader fr 		= new FileReader( f );
 			BufferedReader br 	= new BufferedReader(fr);
 			
 			String data_str = "";

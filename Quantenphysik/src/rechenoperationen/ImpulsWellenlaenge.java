@@ -9,8 +9,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import app.App;
-
 public class ImpulsWellenlaenge {
 	public static final double INFINITY = -2.0101001043898;
 	
@@ -173,12 +171,11 @@ public class ImpulsWellenlaenge {
 	}
 	
 	// resultat -> save
-	public void save_json(String filename, JSONObject object) {
+	public void save_json(File file, JSONObject object) {
 		try {
-			File f = new File( App.user_folder.toString() + "/" + filename);
-			f.createNewFile();
+			file.createNewFile();
 			
-			FileWriter fw		= new FileWriter(f);
+			FileWriter fw		= new FileWriter(file);
 			BufferedWriter bw	= new BufferedWriter(fw);
 			
 			bw.write(object.toString());
