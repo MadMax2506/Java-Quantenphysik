@@ -1,14 +1,16 @@
 package gui.main.panel.action;
 
 import java.awt.EventQueue;
+import java.io.File;
 import java.util.LinkedList;
 
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import org.json.JSONObject;
 
-import app.App;
+import gui.filechooser.impulswellenlaenge.SaveFile;
 import gui.main.panel.ImpulsWellenlaengeBerechnenPanel;
 import rechenoperationen.Helper;
 import rechenoperationen.ImpulsWellenlaenge;
@@ -192,10 +194,15 @@ public class ImpulsWellenlaengeBerechnen {
 
 		//
 		if(save_rechenweg) {
-			String name = JOptionPane.showInputDialog(null, "Bitte geben Sie eine den Namen der Datei ein (ohne \".json\").\nDie Datei wird in \"" + App.user_folder + "\" gespeichert.\n", "Dateiname", JOptionPane.PLAIN_MESSAGE);
+			// JFileChooser-Objekt erstellen
 			
-			if(name != null) {
-				impuls_wellenlaenge.save_json( name + ".json", data_json );
+			// Dialog zum Speichern von Dateien anzeigen
+			JFileChooser chooser = new SaveFile();
+
+	        int res = chooser.showSaveDialog(null);
+			if(res == JFileChooser.APPROVE_OPTION) {
+				File f = chooser.getSelectedFile();
+				impuls_wellenlaenge.save_json( f, data_json );
 			}
 		}
 		
